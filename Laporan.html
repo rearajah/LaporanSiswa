@@ -18,7 +18,6 @@
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
                 <div class="p-2 bg-white/10 rounded-xl border border-white/20">
-                    <!-- Icon Perkakas -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.256.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.175 0l-3.97 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.43c-.772-.553-.372-1.81.588-1.81h4.906a1 1 0 00.95-.69l1.519-4.674z" />
                     </svg>
@@ -100,19 +99,12 @@
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
-                    <!-- Lokasi Kelas & Urgensi -->
+                    <!-- LOKASI KELAS KETIK & URGENSI -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Ruang Kelas *</label>
-                            <select id="kelasLokasi" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-700">
-                                <option value="" disabled selected>Pilih Kelas...</option>
-                                <option value="Kelas 10-A">Kelas 10-A</option>
-                                <option value="Kelas 10-B">Kelas 10-B</option>
-                                <option value="Kelas 11-A">Kelas 11-A</option>
-                                <option value="Kelas 11-B">Kelas 11-B</option>
-                                <option value="Kelas 12-A">Kelas 12-A</option>
-                                <option value="Laboratorium Komputer">Laboratorium Komputer</option>
-                            </select>
+                            <input type="text" id="kelasLokasi" placeholder="Ketik kelas, misal: 11 MIPA 3, Lab Biologi" required
+                                class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tingkat Kedaruratan</label>
@@ -191,13 +183,13 @@
 
     <!-- LOGIKA UTAMA JAVASCRIPT -->
     <script>
-        // Database Lokal Sementara (Array Object)
+        // Database Lokal Sementara
         let dataLaporan = [
             {
                 id: 1,
                 nama: "Rian Saputra",
                 barang: "Kursi Belajar Patah Kaki Belakang",
-                kelas: "Kelas 11-A",
+                kelas: "Kelas 11 MIPA 1",
                 urgensi: "Darurat",
                 foto: "https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400",
                 status: "Menunggu",
@@ -205,7 +197,10 @@
             }
         ];
 
-        // Fungsi Switch Tab (Halaman Siswa <=> Guru)
+        // Status verifikasi password guru (false = belum memasukkan password)
+        let sudahVerifikasiGuru = false;
+
+        // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password
         function switchTab(mode) {
             const btnSiswa = document.getElementById('btnSiswa');
             const btnGuru = document.getElementById('btnGuru');
@@ -218,10 +213,24 @@
                 kontenSiswa.classList.remove('hidden');
                 kontenGuru.classList.add('hidden');
             } else {
+                // JIKA BELUM VERIFIKASI, MINTA PASSWORD
+                if (!sudahVerifikasiGuru) {
+                    let inputPassword = prompt("Masukkan Kata Sandi Khusus Guru / Sarpras:");
+                    
+                    if (inputPassword === "lapor123") {
+                        sudahVerifikasiGuru = true; // Tandai sukses agar tidak ditanya lagi selama belum di-refresh
+                    } else {
+                        alert("Kata sandi salah! Akses ditolak.");
+                        return; // Gagalkan pemindahan halaman jika salah
+                    }
+                }
+
+                // Masuk ke Mode Guru jika lolos verifikasi
                 btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
                 btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
                 kontenGuru.classList.remove('hidden');
                 kontenSiswa.classList.add('hidden');
+                
                 // Reset Badge jumlah notifikasi saat halaman guru dibuka
                 document.getElementById('badgeNotif').className = "hidden";
                 document.getElementById('badgeNotif').innerText = "0";
@@ -237,7 +246,7 @@
             document.getElementById('txtFotoTerpilih').classList.remove('hidden');
         }
 
-        // Memproses file foto buatan sendiri menjadi format base64 agar bisa dirender langsung
+        // Memproses file foto buatan sendiri menjadi format base64
         function prosesFoto(event) {
             const file = event.target.files[0];
             if (!file) return;
@@ -273,33 +282,27 @@
                 waktu: waktuSekarang
             };
 
-            // Masukkan data ke array paling atas
             dataLaporan.unshift(laporanBaru);
 
-            // Munculkan Banner Sukses di Halaman Siswa
             const banner = document.getElementById('notifSukses');
             banner.classList.remove('hidden');
             setTimeout(() => banner.classList.add('hidden'), 4000);
 
-            // Tambahkan notifikasi angka di Tab Guru
             const badge = document.getElementById('badgeNotif');
             let jumlahNotif = parseInt(badge.innerText) + 1;
             badge.innerText = jumlahNotif;
             badge.classList.remove('hidden');
 
-            // Jalankan fitur pemberitahuan suara otomatis (Text-to-Speech)
             panggilSuaraGuru(barang, kelas);
 
-            // Reset Form Isian
             document.getElementById('formLaporan').reset();
             document.getElementById('txtFotoTerpilih').classList.add('hidden');
             document.getElementById('fotoBase64').value = "https://images.unsplash.com/photo-1595206133361-b1fe343e5e23?w=400";
 
-            // Gambar ulang tampilan aplikasi
             renderAplikasi();
         }
 
-        // Fitur Text To Speech - Browser akan otomatis berbicara bahasa indonesia mengeluarkan peringatan
+        // Fitur Text To Speech
         function panggilSuaraGuru(barang, kelas) {
             if ('speechSynthesis' in window) {
                 const kalimat = `Perhatian, laporan baru masuk. ${barang}, rusak di ruang, ${kelas}. Segera antarkan gantinya.`;
@@ -310,7 +313,7 @@
             }
         }
 
-        // Mengubah status laporan (Menunggu -> OTW -> Selesai)
+        // Mengubah status laporan
         function ubahStatus(id, statusBaru) {
             dataLaporan = dataLaporan.map(lap => {
                 if(lap.id === id) {
@@ -321,7 +324,7 @@
             renderAplikasi();
         }
 
-        // Menghapus arsip laporan dari list
+        // Menghapus arsip laporan
         function hapusLaporan(id) {
             if(confirm("Apakah Anda yakin ingin menghapus arsip laporan ini?")) {
                 dataLaporan = dataLaporan.filter(lap => lap.id !== id);
@@ -329,12 +332,11 @@
             }
         }
 
-        // Fungsi Render / Menampilkan data terbaru ke dalam elemen HTML
+        // Fungsi Render Data ke elemen HTML
         function renderAplikasi() {
             const listSiswa = document.getElementById('listSiswaMonitor');
             const listGuru = document.getElementById('listGuruTugas');
 
-            // Hitung Statistik Guru
             let mng = dataLaporan.filter(l => l.status === 'Menunggu').length;
             let otw = dataLaporan.filter(l => l.status === 'OTW').length;
             let sls = dataLaporan.filter(l => l.status === 'Selesai').length;
@@ -411,8 +413,8 @@
             }
         }
 
-        // Jalankan render aplikasi pertama kali saat halaman dimuat
         renderAplikasi();
     </script>
 </body>
 </html>
+
