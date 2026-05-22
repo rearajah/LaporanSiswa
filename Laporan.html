@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LaporSarpras - Pelaporan Fasilitas Sekolah</title>
+    <!-- Tailwind CSS CDN untuk Desain Modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- HEADER & NAVBAR -->
+    <header class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-white/10 rounded-xl border border-white/20">
+                    <!-- Icon Perkakas -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.907c.961 0 1.36 1.256.588 1.81l-3.97 2.883a1 1 0 00-.364 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.971-2.883a1 1 0 00-1.175 0l-3.97 2.883c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.98 9.43c-.772-.553-.372-1.81.588-1.81h4.906a1 1 0 00.95-.69l1.519-4.674z" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight">LaporSarpras</h1>
+                    <p class="text-xs text-emerald-100/80">Sistem Cepat Ganti Fasilitas Rusak</p>
+                </div>
+            </div>
+            
+            <!-- TOMBOL NAVIGASI / SWITCH TAB -->
+            <div class="flex bg-emerald-950/40 p-1 rounded-xl border border-emerald-500/20 w-full sm:w-auto">
+                <button id="btnSiswa" onclick="switchTab('siswa')" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm">
+                    Mode Siswa (Lapor)
+                </button>
+                <button id="btnGuru" onclick="switchTab('guru')" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10 relative">
+                    Mode Guru (Sarpras)
+                    <span id="badgeNotif" class="hidden absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full animate-bounce">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- ========================================================= -->
+        <!-- ======================= MODE SISWA ====================== -->
+        <!-- ========================================================= -->
+        <div id="kontenSiswa" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- FORM INPUT SISWA (KIRI) -->
+            <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                <div class="mb-5">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">Formulir Laporan Kerusakan</h2>
+                    <p class="text-xs text-slate-500 mt-1">Isi data barang yang rusak agar guru sarpras langsung datang membawa gantinya.</p>
+                </div>
+
+                <!-- Notifikasi Sukses -->
+                <div id="notifSukses" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 flex items-start space-x-3">
+                    <div class="text-emerald-600 font-bold">✓ Laporan berhasil dikirim ke Guru Sarpras secara Real-time!</div>
+                </div>
+
+                <form id="formLaporan" onsubmit="kirimLaporan(event)" class="space-y-5">
+                    <!-- Nama Pelapor -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Pelapor (Siswa)</label>
+                        <input type="text" id="siswaNama" placeholder="Contoh: Andi Wijaya" required
+                            class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
+                    </div>
+
+                    <!-- Pilihan Cepat / Preset -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Pilihan Kerusakan Umum (Klik untuk Memilih):</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button type="button" onclick="pilihPreset('Kursi Kelas Patah', 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                                <strong>Kursi Patah</strong>
+                            </button>
+                            <button type="button" onclick="pilihPreset('Kaca Jendela Pecah', 'https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                                <strong>Kaca Pecah</strong>
+                            </button>
+                            <button type="button" onclick="pilihPreset('AC Kelas Bocor', 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                                <strong>AC Bocor</strong>
+                            </button>
+                            <button type="button" onclick="pilihPreset('Lampu Kelas Mati', 'https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                                <strong>Lampu Mati</strong>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Nama Barang -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Barang Yang Rusak *</label>
+                        <input type="text" id="barangNama" placeholder="Misal: Kursi Kayu Sandaran Copot" required
+                            class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
+                    </div>
+
+                    <!-- Lokasi Kelas & Urgensi -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Ruang Kelas *</label>
+                            <select id="kelasLokasi" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-700">
+                                <option value="" disabled selected>Pilih Kelas...</option>
+                                <option value="Kelas 10-A">Kelas 10-A</option>
+                                <option value="Kelas 10-B">Kelas 10-B</option>
+                                <option value="Kelas 11-A">Kelas 11-A</option>
+                                <option value="Kelas 11-B">Kelas 11-B</option>
+                                <option value="Kelas 12-A">Kelas 12-A</option>
+                                <option value="Laboratorium Komputer">Laboratorium Komputer</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tingkat Kedaruratan</label>
+                            <select id="urgensiLevel" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-700">
+                                <option value="Biasa">Biasa (Tidak mengganggu KBM)</option>
+                                <option value="Sedang" selected>Sedang (Cukup mengganggu)</option>
+                                <option value="Darurat">Darurat (Harus diganti sekarang)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Upload Foto / Kamera -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Foto Bukti Kerusakan (Bisa pakai Kamera HP langsung)</label>
+                        <input type="file" id="fotoFile" accept="image/*" onchange="prosesFoto(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
+                        <input type="hidden" id="fotoBase64" value="https://images.unsplash.com/photo-1595206133361-b1fe343e5e23?w=400">
+                        <p id="txtFotoTerpilih" class="text-xs text-emerald-600 mt-1 font-semibold hidden">✓ Foto kustom berhasil dimuat!</p>
+                    </div>
+
+                    <!-- Tombol Kirim -->
+                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition transform active:scale-95">
+                        KIRIM LAPORAN KE GURU
+                    </button>
+                </form>
+            </div>
+
+            <!-- MONITOR PROGRES REALTIME (KANAN) -->
+            <div class="lg:col-span-5 space-y-6">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
+                        <span>Status Perbaikan Kelas Anda</span>
+                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE PREVIEW</span>
+                    </h3>
+                    <div id="listSiswaMonitor" class="space-y-3">
+                        <!-- Diisi otomatis oleh JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- ======================= MODE GURU ======================= -->
+        <!-- ========================================================= -->
+        <div id="kontenGuru" class="hidden space-y-6">
+            <!-- DASHBOARD STATISTIK -->
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Antrean Masuk</span>
+                    <span id="statMenunggu" class="text-2xl font-extrabold text-rose-600">0</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Guru OTW Lokasi</span>
+                    <span id="statOtw" class="text-2xl font-extrabold text-amber-500">0</span>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Selesai Diganti</span>
+                    <span id="statSelesai" class="text-2xl font-extrabold text-emerald-600">0</span>
+                </div>
+            </div>
+
+            <!-- DAFTAR LAPORAN UNTUK EKSEKUSI GURU -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                <h3 class="font-bold text-slate-800 text-md mb-4">Daftar Tugas Kerusakan Fasilitas</h3>
+                <div id="listGuruTugas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Diisi otomatis oleh JavaScript -->
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-500 py-4 text-center text-xs mt-12 border-t border-slate-800">
+        <p>© 2026 LaporSarpras Sekolah • Penanganan Cepat Berbasis HTML & JavaScript</p>
+    </footer>
+
+    <!-- LOGIKA UTAMA JAVASCRIPT -->
+    <script>
+        // Database Lokal Sementara (Array Object)
+        let dataLaporan = [
+            {
+                id: 1,
+                nama: "Rian Saputra",
+                barang: "Kursi Belajar Patah Kaki Belakang",
+                kelas: "Kelas 11-A",
+                urgensi: "Darurat",
+                foto: "https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400",
+                status: "Menunggu",
+                waktu: "13:45"
+            }
+        ];
+
+        // Fungsi Switch Tab (Halaman Siswa <=> Guru)
+        function switchTab(mode) {
+            const btnSiswa = document.getElementById('btnSiswa');
+            const btnGuru = document.getElementById('btnGuru');
+            const kontenSiswa = document.getElementById('kontenSiswa');
+            const kontenGuru = document.getElementById('kontenGuru');
+
+            if (mode === 'siswa') {
+                btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm";
+                btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10 relative";
+                kontenSiswa.classList.remove('hidden');
+                kontenGuru.classList.add('hidden');
+            } else {
+                btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
+                btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
+                kontenGuru.classList.remove('hidden');
+                kontenSiswa.classList.add('hidden');
+                // Reset Badge jumlah notifikasi saat halaman guru dibuka
+                document.getElementById('badgeNotif').className = "hidden";
+                document.getElementById('badgeNotif').innerText = "0";
+            }
+            renderAplikasi();
+        }
+
+        // Pilihan cepat menggunakan gambar preset
+        function pilihPreset(namaBarang, urlGambar) {
+            document.getElementById('barangNama').value = namaBarang;
+            document.getElementById('fotoBase64').value = urlGambar;
+            document.getElementById('txtFotoTerpilih').innerText = "✓ Menggunakan contoh foto preset";
+            document.getElementById('txtFotoTerpilih').classList.remove('hidden');
+        }
+
+        // Memproses file foto buatan sendiri menjadi format base64 agar bisa dirender langsung
+        function prosesFoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('fotoBase64').value = e.target.result;
+                document.getElementById('txtFotoTerpilih').innerText = "✓ Foto kustom siap dikirim!";
+                document.getElementById('txtFotoTerpilih').classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
+        }
+
+        // Fungsi ketika siswa menekan tombol Kirim Laporan
+        function kirimLaporan(event) {
+            event.preventDefault();
+            
+            const nama = document.getElementById('siswaNama').value;
+            const barang = document.getElementById('barangNama').value;
+            const kelas = document.getElementById('kelasLokasi').value;
+            const urgensi = document.getElementById('urgensiLevel').value;
+            const foto = document.getElementById('fotoBase64').value;
+            
+            const waktuSekarang = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+            const laporanBaru = {
+                id: Date.now(),
+                nama: nama,
+                barang: barang,
+                kelas: kelas,
+                urgensi: urgensi,
+                foto: foto,
+                status: "Menunggu",
+                waktu: waktuSekarang
+            };
+
+            // Masukkan data ke array paling atas
+            dataLaporan.unshift(laporanBaru);
+
+            // Munculkan Banner Sukses di Halaman Siswa
+            const banner = document.getElementById('notifSukses');
+            banner.classList.remove('hidden');
+            setTimeout(() => banner.classList.add('hidden'), 4000);
+
+            // Tambahkan notifikasi angka di Tab Guru
+            const badge = document.getElementById('badgeNotif');
+            let jumlahNotif = parseInt(badge.innerText) + 1;
+            badge.innerText = jumlahNotif;
+            badge.classList.remove('hidden');
+
+            // Jalankan fitur pemberitahuan suara otomatis (Text-to-Speech)
+            panggilSuaraGuru(barang, kelas);
+
+            // Reset Form Isian
+            document.getElementById('formLaporan').reset();
+            document.getElementById('txtFotoTerpilih').classList.add('hidden');
+            document.getElementById('fotoBase64').value = "https://images.unsplash.com/photo-1595206133361-b1fe343e5e23?w=400";
+
+            // Gambar ulang tampilan aplikasi
+            renderAplikasi();
+        }
+
+        // Fitur Text To Speech - Browser akan otomatis berbicara bahasa indonesia mengeluarkan peringatan
+        function panggilSuaraGuru(barang, kelas) {
+            if ('speechSynthesis' in window) {
+                const kalimat = `Perhatian, laporan baru masuk. ${barang}, rusak di ruang, ${kelas}. Segera antarkan gantinya.`;
+                const ucapan = new SpeechSynthesisUtterance(kalimat);
+                ucapan.lang = 'id-ID';
+                ucapan.rate = 0.9;
+                window.speechSynthesis.speak(ucapan);
+            }
+        }
+
+        // Mengubah status laporan (Menunggu -> OTW -> Selesai)
+        function ubahStatus(id, statusBaru) {
+            dataLaporan = dataLaporan.map(lap => {
+                if(lap.id === id) {
+                    return { ...lap, status: statusBaru };
+                }
+                return lap;
+            });
+            renderAplikasi();
+        }
+
+        // Menghapus arsip laporan dari list
+        function hapusLaporan(id) {
+            if(confirm("Apakah Anda yakin ingin menghapus arsip laporan ini?")) {
+                dataLaporan = dataLaporan.filter(lap => lap.id !== id);
+                renderAplikasi();
+            }
+        }
+
+        // Fungsi Render / Menampilkan data terbaru ke dalam elemen HTML
+        function renderAplikasi() {
+            const listSiswa = document.getElementById('listSiswaMonitor');
+            const listGuru = document.getElementById('listGuruTugas');
+
+            // Hitung Statistik Guru
+            let mng = dataLaporan.filter(l => l.status === 'Menunggu').length;
+            let otw = dataLaporan.filter(l => l.status === 'OTW').length;
+            let sls = dataLaporan.filter(l => l.status === 'Selesai').length;
+
+            document.getElementById('statMenunggu').innerText = mng;
+            document.getElementById('statOtw').innerText = otw;
+            document.getElementById('statSelesai').innerText = sls;
+
+            // 1. RENDER UNTUK MONITOR SISWA (KANAN)
+            listSiswa.innerHTML = "";
+            if(dataLaporan.length === 0) {
+                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Belum ada laporan masuk.</p>`;
+            } else {
+                dataLaporan.slice(0, 4).forEach(lap => {
+                    let warnaStatus = lap.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : lap.status === 'OTW' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-rose-100 text-rose-800';
+                    let textInfo = lap.status === 'OTW' ? '<p class="text-[10px] text-amber-700 font-bold mt-1">🚚 Guru sedang berjalan membawa pengganti!</p>' : lap.status === 'Selesai' ? '<p class="text-[10px] text-emerald-700 font-bold mt-1">✓ Beres! Fasilitas baru sudah dipasang.</p>' : '';
+                    
+                    listSiswa.innerHTML += `
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex gap-3 items-start">
+                            <img src="${lap.foto}" class="w-12 h-12 rounded-lg object-cover bg-slate-200 shrink-0">
+                            <div class="min-w-0 flex-grow">
+                                <div class="flex justify-between items-start gap-1">
+                                    <h4 class="text-xs font-bold text-slate-800 truncate">${lap.barang}</h4>
+                                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase shrink-0 ${warnaStatus}">${lap.status}</span>
+                                </div>
+                                <p class="text-[10px] text-slate-500 mt-0.5">📍 ${lap.kelas} • Jam ${lap.waktu}</p>
+                                ${textInfo}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+
+            // 2. RENDER UNTUK DAFTAR TUGAS GURU (MODE GURU)
+            listGuru.innerHTML = "";
+            if(dataLaporan.length === 0) {
+                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Semua aman! Tidak ada fasilitas rusak hari ini.</div>`;
+            } else {
+                dataLaporan.forEach(lap => {
+                    let badgeUrgensi = lap.urgensi === 'Darurat' ? 'bg-rose-500' : lap.urgensi === 'Sedang' ? 'bg-amber-500' : 'bg-slate-500';
+                    let tombolAksi = "";
+
+                    if(lap.status === 'Menunggu') {
+                        tombolAksi = `<button onclick="ubahStatus(${lap.id}, 'OTW')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition">Bawa Barang & OTW</button>`;
+                    } else if (lap.status === 'OTW') {
+                        tombolAksi = `<button onclick="ubahStatus(${lap.id}, 'Selesai')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition">Selesai Terpasang</button>`;
+                    } else {
+                        tombolAksi = `<span class="text-xs font-bold text-emerald-600 flex items-center">✓ Selesai</span>`;
+                    }
+
+                    listGuru.innerHTML += `
+                        <div class="p-4 rounded-xl border ${lap.status === 'Selesai' ? 'border-slate-200 bg-slate-50' : 'border-rose-200 bg-white shadow-sm'} flex flex-col justify-between">
+                            <div>
+                                <div class="flex justify-between items-start gap-2 mb-2">
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full text-white ${badgeUrgensi}">${lap.urgensi}</span>
+                                    <span class="text-xs text-slate-400">Jam ${lap.waktu}</span>
+                                </div>
+                                <div class="flex gap-3">
+                                    <img src="${lap.foto}" class="w-16 h-16 rounded-xl object-cover border border-slate-200 shrink-0">
+                                    <div>
+                                        <h4 class="font-bold text-slate-800 text-sm leading-snug">${lap.barang}</h4>
+                                        <p class="text-xs text-slate-600 font-semibold mt-1 text-emerald-700">📍 Ruang: ${lap.kelas}</p>
+                                        <p class="text-[11px] text-slate-400 mt-0.5">Dilaporkan oleh: ${lap.nama}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
+                                <button onclick="hapusLaporan(${lap.id})" class="text-slate-400 hover:text-rose-600 text-xs transition">Hapus</button>
+                                ${tombolAksi}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // Jalankan render aplikasi pertama kali saat halaman dimuat
+        renderAplikasi();
+    </script>
+</body>
+</html>
