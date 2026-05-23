@@ -183,22 +183,16 @@
 
     <!-- LOGIKA UTAMA JAVASCRIPT -->
     <script>
-        // Database Lokal Sementara
-        let dataLaporan = [
-            {
-                id: 1,
-                nama: "Rian Saputra",
-                barang: "Kursi Belajar Patah Kaki Belakang",
-                kelas: "Kelas 11 MIPA 1",
-                urgensi: "Darurat",
-                foto: "https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400",
-                status: "Menunggu",
-                waktu: "13:45"
-            }
-        ];
+        // MENGAMBIL DATA DARI LOCAL STORAGE (Jika kosong, mulai dari array kosong [])
+        let dataLaporan = JSON.parse(localStorage.getItem('lapor_sarpras_db')) || [];
 
-        // Status verifikasi password guru (false = belum memasukkan password)
+        // Status verifikasi password guru
         let sudahVerifikasiGuru = false;
+
+        // Fungsi bantu untuk menyimpan perubahan data ke local storage komputer
+        function simpanKeStorage() {
+            localStorage.setItem('lapor_sarpras_db', JSON.stringify(dataLaporan));
+        }
 
         // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password
         function switchTab(mode) {
@@ -213,25 +207,22 @@
                 kontenSiswa.classList.remove('hidden');
                 kontenGuru.classList.add('hidden');
             } else {
-                // JIKA BELUM VERIFIKASI, MINTA PASSWORD
                 if (!sudahVerifikasiGuru) {
                     let inputPassword = prompt("Masukkan Kata Sandi Khusus Guru / Sarpras:");
                     
                     if (inputPassword === "lapor123") {
-                        sudahVerifikasiGuru = true; // Tandai sukses agar tidak ditanya lagi selama belum di-refresh
+                        sudahVerifikasiGuru = true; 
                     } else {
                         alert("Kata sandi salah! Akses ditolak.");
-                        return; // Gagalkan pemindahan halaman jika salah
+                        return;
                     }
                 }
 
-                // Masuk ke Mode Guru jika lolos verifikasi
                 btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
                 btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
                 kontenGuru.classList.remove('hidden');
                 kontenSiswa.classList.add('hidden');
                 
-                // Reset Badge jumlah notifikasi saat halaman guru dibuka
                 document.getElementById('badgeNotif').className = "hidden";
                 document.getElementById('badgeNotif').innerText = "0";
             }
@@ -283,6 +274,7 @@
             };
 
             dataLaporan.unshift(laporanBaru);
+            simpanKeStorage(); // Simpan otomatis laporan baru
 
             const banner = document.getElementById('notifSukses');
             banner.classList.remove('hidden');
@@ -321,13 +313,15 @@
                 }
                 return lap;
             });
+            simpanKeStorage(); // Simpan otomatis perubahan status
             renderAplikasi();
         }
 
-        // Menghapus arsip laporan
+        // Menghapus arsip laporan secara permanen
         function hapusLaporan(id) {
             if(confirm("Apakah Anda yakin ingin menghapus arsip laporan ini?")) {
                 dataLaporan = dataLaporan.filter(lap => lap.id !== id);
+                simpanKeStorage(); // Simpan otomatis hasil penghapusan data
                 renderAplikasi();
             }
         }
@@ -417,4 +411,3 @@
     </script>
 </body>
 </html>
-
