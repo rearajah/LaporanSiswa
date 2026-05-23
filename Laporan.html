@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaporSarpras - Pelaporan Fasilitas Sekolah</title>
-    <!-- Tailwind CSS CDN untuk Desain Modern -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
@@ -13,7 +12,6 @@
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
-    <!-- HEADER & NAVBAR -->
     <header class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
@@ -28,7 +26,6 @@
                 </div>
             </div>
             
-            <!-- TOMBOL NAVIGASI / SWITCH TAB -->
             <div class="flex bg-emerald-950/40 p-1 rounded-xl border border-emerald-500/20 w-full sm:w-auto">
                 <button id="btnSiswa" onclick="switchTab('siswa')" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm">
                     Mode Siswa (Lapor)
@@ -41,35 +38,27 @@
         </div>
     </header>
 
-    <!-- KONTEN UTAMA -->
     <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
 
-        <!-- ========================================================= -->
-        <!-- ======================= MODE SISWA ====================== -->
-        <!-- ========================================================= -->
         <div id="kontenSiswa" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            <!-- FORM INPUT SISWA (KIRI) -->
             <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div class="mb-5">
                     <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">Formulir Laporan Kerusakan</h2>
                     <p class="text-xs text-slate-500 mt-1">Isi data barang yang rusak agar guru sarpras langsung datang membawa gantinya.</p>
                 </div>
 
-                <!-- Notifikasi Sukses -->
                 <div id="notifSukses" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 flex items-start space-x-3">
                     <div class="text-emerald-600 font-bold">✓ Laporan berhasil dikirim ke Guru Sarpras secara Real-time!</div>
                 </div>
 
                 <form id="formLaporan" onsubmit="kirimLaporan(event)" class="space-y-5">
-                    <!-- Nama Pelapor -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Pelapor (Siswa)</label>
                         <input type="text" id="siswaNama" placeholder="Contoh: Andi Wijaya" required
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
-                    <!-- Pilihan Cepat / Preset -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Pilihan Kerusakan Umum (Klik untuk Memilih):</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -92,14 +81,12 @@
                         </div>
                     </div>
 
-                    <!-- Nama Barang -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Barang Yang Rusak *</label>
                         <input type="text" id="barangNama" placeholder="Misal: Kursi Kayu Sandaran Copot" required
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
-                    <!-- LOKASI KELAS KETIK & URGENSI -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Ruang Kelas *</label>
@@ -116,7 +103,6 @@
                         </div>
                     </div>
 
-                    <!-- Upload Foto / Kamera -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Foto Bukti Kerusakan (Bisa pakai Kamera HP langsung)</label>
                         <input type="file" id="fotoFile" accept="image/*" onchange="prosesFoto(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
@@ -124,14 +110,12 @@
                         <p id="txtFotoTerpilih" class="text-xs text-emerald-600 mt-1 font-semibold hidden">✓ Foto kustom berhasil dimuat!</p>
                     </div>
 
-                    <!-- Tombol Kirim -->
                     <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition transform active:scale-95">
                         KIRIM LAPORAN KE GURU
                     </button>
                 </form>
             </div>
 
-            <!-- MONITOR PROGRES REALTIME (KANAN) -->
             <div class="lg:col-span-5 space-y-6">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                     <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
@@ -139,59 +123,64 @@
                         <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE PREVIEW</span>
                     </h3>
                     <div id="listSiswaMonitor" class="space-y-3">
-                        <!-- Diisi otomatis oleh JavaScript -->
-                    </div>
+                        </div>
                 </div>
             </div>
         </div>
 
-        <!-- ========================================================= -->
-        <!-- ======================= MODE GURU ======================= -->
-        <!-- ========================================================= -->
         <div id="kontenGuru" class="hidden space-y-6">
-            <!-- DASHBOARD STATISTIK -->
-            <div class="grid grid-cols-3 gap-4">
-                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Antrean Masuk</span>
-                    <span id="statMenunggu" class="text-2xl font-extrabold text-rose-600">0</span>
+            <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm gap-4">
+                <div class="grid grid-cols-3 gap-4 flex-grow">
+                    <div class="text-center sm:text-left">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Antrean</span>
+                        <span id="statMenunggu" class="text-xl font-extrabold text-rose-600">0</span>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">OTW</span>
+                        <span id="statOtw" class="text-xl font-extrabold text-amber-500">0</span>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Selesai</span>
+                        <span id="statSelesai" class="text-xl font-extrabold text-emerald-600">0</span>
+                    </div>
                 </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Guru OTW Lokasi</span>
-                    <span id="statOtw" class="text-2xl font-extrabold text-amber-500">0</span>
-                </div>
-                <div class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <span class="block text-[10px] font-bold text-slate-400 uppercase">Selesai Diganti</span>
-                    <span id="statSelesai" class="text-2xl font-extrabold text-emerald-600">0</span>
-                </div>
+                <button onclick="bersihkanSemuaData()" class="bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-xs px-3 py-2 rounded-xl border border-rose-200 transition shrink-0">
+                    Bersihkan Semua Arsip
+                </button>
             </div>
 
-            <!-- DAFTAR LAPORAN UNTUK EKSEKUSI GURU -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                 <h3 class="font-bold text-slate-800 text-md mb-4">Daftar Tugas Kerusakan Fasilitas</h3>
                 <div id="listGuruTugas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Diisi otomatis oleh JavaScript -->
-                </div>
+                    </div>
             </div>
         </div>
 
     </main>
 
-    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-500 py-4 text-center text-xs mt-12 border-t border-slate-800">
-        <p>© 2026 LaporSarpras Sekolah • Penanganan Cepat Berbasis HTML & JavaScript</p>
+        <p>CopyRight By X Rpl 2</p>
     </footer>
 
-    <!-- LOGIKA UTAMA JAVASCRIPT -->
     <script>
-        // MENGAMBIL DATA DARI LOCAL STORAGE (Jika kosong, mulai dari array kosong [])
-        let dataLaporan = JSON.parse(localStorage.getItem('lapor_sarpras_db')) || [];
+        // DATABASE BERSIH TOTAL SEJAK AWAL
+        let dataLaporan = JSON.parse(localStorage.getItem('lapor_sarpras_db_v3')) || [];
 
         // Status verifikasi password guru
         let sudahVerifikasiGuru = false;
 
-        // Fungsi bantu untuk menyimpan perubahan data ke local storage komputer
+        // Fungsi bantu simpan ke storage komputer/HP
         function simpanKeStorage() {
-            localStorage.setItem('lapor_sarpras_db', JSON.stringify(dataLaporan));
+            localStorage.setItem('lapor_sarpras_db_v3', JSON.stringify(dataLaporan));
+        }
+
+        // Fungsi membersihkan seluruh data (Reset total)
+        function bersihkanSemuaData() {
+            if(confirm("Apakah Anda yakin ingin menghapus seluruh riwayat laporan? Tindakan ini tidak bisa dibatalkan.")) {
+                dataLaporan = [];
+                simpanKeStorage();
+                renderAplikasi();
+            }
         }
 
         // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password
@@ -274,7 +263,7 @@
             };
 
             dataLaporan.unshift(laporanBaru);
-            simpanKeStorage(); // Simpan otomatis laporan baru
+            simpanKeStorage();
 
             const banner = document.getElementById('notifSukses');
             banner.classList.remove('hidden');
@@ -313,15 +302,15 @@
                 }
                 return lap;
             });
-            simpanKeStorage(); // Simpan otomatis perubahan status
+            simpanKeStorage();
             renderAplikasi();
         }
 
-        // Menghapus arsip laporan secara permanen
+        // Menghapus arsip laporan secara spesifik
         function hapusLaporan(id) {
             if(confirm("Apakah Anda yakin ingin menghapus arsip laporan ini?")) {
                 dataLaporan = dataLaporan.filter(lap => lap.id !== id);
-                simpanKeStorage(); // Simpan otomatis hasil penghapusan data
+                simpanKeStorage();
                 renderAplikasi();
             }
         }
@@ -342,7 +331,7 @@
             // 1. RENDER UNTUK MONITOR SISWA (KANAN)
             listSiswa.innerHTML = "";
             if(dataLaporan.length === 0) {
-                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Belum ada laporan masuk.</p>`;
+                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">Belum ada laporan masuk dari siswa kelas manapun.</p>`;
             } else {
                 dataLaporan.slice(0, 4).forEach(lap => {
                     let warnaStatus = lap.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : lap.status === 'OTW' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-rose-100 text-rose-800';
@@ -367,7 +356,7 @@
             // 2. RENDER UNTUK DAFTAR TUGAS GURU (MODE GURU)
             listGuru.innerHTML = "";
             if(dataLaporan.length === 0) {
-                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Semua aman! Tidak ada fasilitas rusak hari ini.</div>`;
+                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Semua aman! Tidak ada fasilitas rusak saat ini.</div>`;
             } else {
                 dataLaporan.forEach(lap => {
                     let badgeUrgensi = lap.urgensi === 'Darurat' ? 'bg-rose-500' : lap.urgensi === 'Sedang' ? 'bg-amber-500' : 'bg-slate-500';
@@ -411,3 +400,4 @@
     </script>
 </body>
 </html>
+
