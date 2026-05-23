@@ -11,7 +11,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Animasi halusnya pop-up modal */
+        /* Animasi halusnya pop-up modal kustom */
         .modal-active {
             animation: cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards modalShow;
         }
@@ -83,20 +83,20 @@
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Pilihan Kerusakan Umum (Klik untuk Memilih):</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <button type="button" onclick="pilihPreset('Kursi Kelas Patah', 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                            <button type="button" onclick="pilihPreset('Kursi Kelas Patah', 'https://i.ibb.co.com/4Rkshf1x/33211.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://i.ibb.co.com/4Rkshf1x/33211.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kursi Patah]">
                                 <strong>Kursi Patah</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('Kaca Jendela Pecah', 'https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://images.unsplash.com/photo-1509718443690-d8e2fb3474b7?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                            <button type="button" onclick="pilihPreset('Kaca Jendela Pecah', 'https://i.ibb.co.com/5hXmgxdC/33212.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://i.ibb.co.com/5hXmgxdC/33212.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kaca Pecah]">
                                 <strong>Kaca Pecah</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('AC Kelas Bocor', 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                            <button type="button" onclick="pilihPreset('AC Kelas Bocor', 'https://i.ibb.co.com/84Lm6zwV/33217.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://i.ibb.co.com/84Lm6zwV/33217.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[AC Bocor]">
                                 <strong>AC Bocor</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('Lampu Kelas Mati', 'https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?w=400')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://images.unsplash.com/photo-1517999144091-3d9dca6d1e43?w=200" class="h-16 w-full object-cover rounded-lg mb-1">
+                            <button type="button" onclick="pilihPreset('Lampu Kelas Mati', 'https://i.ibb.co.com/B5Hp0wdR/33184.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://i.ibb.co.com/B5Hp0wdR/33184.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Lampu Mati]">
                                 <strong>Lampu Mati</strong>
                             </button>
                         </div>
@@ -130,7 +130,7 @@
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Foto Bukti Kerusakan (Bisa pakai Kamera HP langsung)</label>
                         <input type="file" id="fotoFile" accept="image/*" onchange="prosesFoto(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
-                        <input type="hidden" id="fotoBase64" value="https://images.unsplash.com/photo-1595206133361-b1fe343e5e23?w=400">
+                        <input type="hidden" id="fotoBase64" value="https://i.ibb.co.com/4Rkshf1x/33211.jpg">
                         <p id="txtFotoTerpilih" class="text-xs text-emerald-600 mt-1 font-semibold hidden">✓ Foto kustom berhasil dimuat!</p>
                     </div>
 
@@ -222,7 +222,7 @@
     <!-- ========================================================= -->
 
     <!-- 1. Modal Input Password Guru -->
-    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
             <div class="text-center">
                 <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -258,7 +258,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                     </svg>
                 </div>
-                <h3 id="konfirmJudul" class="text-lg font-bold text-slate-900">Hapus Arsip?</h3>
+                <h3 id="konfirmJudul" class="text-lg font-bold text-slate-900">Hapus Laporan?</h3>
                 <p id="konfirmPesan" class="text-xs text-slate-500 mt-1">Apakah Anda yakin ingin menghapus data laporan ini secara permanen dari database lokal?</p>
             </div>
             <div class="mt-6 flex space-x-3">
@@ -299,7 +299,7 @@
             document.getElementById('modalKonfirmasi').classList.remove('hidden');
         }
 
-        // Fungsi membuka modal konfirmasi haps data tunggal
+        // Fungsi membuka modal konfirmasi hapus data tunggal
         function bukaKonfirmasiHapus(id) {
             idHapusSementara = id;
             aksiKonfirmasiAktif = 'tunggal';
@@ -448,7 +448,7 @@
 
             document.getElementById('formLaporan').reset();
             document.getElementById('txtFotoTerpilih').classList.add('hidden');
-            document.getElementById('fotoBase64').value = "https://images.unsplash.com/photo-1595206133361-b1fe343e5e23?w=400";
+            document.getElementById('fotoBase64').value = "https://i.ibb.co.com/4Rkshf1x/33211.jpg";
 
             renderAplikasi();
         }
@@ -499,7 +499,7 @@
                     let textInfo = lap.status === 'OTW' ? '<p class="text-[10px] text-amber-700 font-bold mt-1">🚚 Guru sedang berjalan membawa pengganti!</p>' : lap.status === 'Selesai' ? '<p class="text-[10px] text-emerald-700 font-bold mt-1">✓ Beres! Fasilitas baru sudah dipasang.</p>' : '';
                     
                     listSiswa.innerHTML += `
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex gap-3 items-start">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex gap-3 items-start animate-fade-in">
                             <img src="${lap.foto}" class="w-12 h-12 rounded-lg object-cover bg-slate-200 shrink-0">
                             <div class="min-w-0 flex-grow">
                                 <div class="flex justify-between items-start gap-1">
