@@ -1,17 +1,29 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaporSarpras - Pelaporan Fasilitas Sekolah</title>
+    <!-- Tailwind CSS CDN untuk Desain Modern -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        /* Animasi halusnya pop-up modal */
+        .modal-active {
+            animation: cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards modalShow;
+        }
+        @keyframes modalShow {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
+    <!-- HEADER & NAVBAR -->
     <header class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col sm:flex-row justify-between items-center gap-3">
             <div class="flex items-center space-x-3">
@@ -26,6 +38,7 @@
                 </div>
             </div>
             
+            <!-- TOMBOL NAVIGASI / SWITCH TAB -->
             <div class="flex bg-emerald-950/40 p-1 rounded-xl border border-emerald-500/20 w-full sm:w-auto">
                 <button id="btnSiswa" onclick="switchTab('siswa')" class="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm">
                     Mode Siswa (Lapor)
@@ -38,27 +51,35 @@
         </div>
     </header>
 
+    <!-- KONTEN UTAMA -->
     <main class="flex-grow max-w-6xl w-full mx-auto p-4 sm:p-6">
 
+        <!-- ========================================================= -->
+        <!-- ======================= MODE SISWA ====================== -->
+        <!-- ========================================================= -->
         <div id="kontenSiswa" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
+            <!-- FORM INPUT SISWA (KIRI) -->
             <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div class="mb-5">
                     <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">Formulir Laporan Kerusakan</h2>
                     <p class="text-xs text-slate-500 mt-1">Isi data barang yang rusak agar guru sarpras langsung datang membawa gantinya.</p>
                 </div>
 
+                <!-- Notifikasi Sukses -->
                 <div id="notifSukses" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 flex items-start space-x-3">
                     <div class="text-emerald-600 font-bold">✓ Laporan berhasil dikirim ke Guru Sarpras secara Real-time!</div>
                 </div>
 
                 <form id="formLaporan" onsubmit="kirimLaporan(event)" class="space-y-5">
+                    <!-- Nama Pelapor -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Pelapor (Siswa)</label>
                         <input type="text" id="siswaNama" placeholder="Contoh: Andi Wijaya" required
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
+                    <!-- Pilihan Cepat / Preset -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Pilihan Kerusakan Umum (Klik untuk Memilih):</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -81,12 +102,14 @@
                         </div>
                     </div>
 
+                    <!-- Nama Barang -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Nama Barang Yang Rusak *</label>
                         <input type="text" id="barangNama" placeholder="Misal: Kursi Kayu Sandaran Copot" required
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
+                    <!-- LOKASI KELAS KETIK & URGENSI -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Ruang Kelas *</label>
@@ -103,6 +126,7 @@
                         </div>
                     </div>
 
+                    <!-- Upload Foto / Kamera -->
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Foto Bukti Kerusakan (Bisa pakai Kamera HP langsung)</label>
                         <input type="file" id="fotoFile" accept="image/*" onchange="prosesFoto(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
@@ -110,12 +134,14 @@
                         <p id="txtFotoTerpilih" class="text-xs text-emerald-600 mt-1 font-semibold hidden">✓ Foto kustom berhasil dimuat!</p>
                     </div>
 
+                    <!-- Tombol Kirim -->
                     <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition transform active:scale-95">
                         KIRIM LAPORAN KE GURU
                     </button>
                 </form>
             </div>
 
+            <!-- MONITOR PROGRES REALTIME (KANAN) -->
             <div class="lg:col-span-5 space-y-6">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                     <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
@@ -123,12 +149,17 @@
                         <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE PREVIEW</span>
                     </h3>
                     <div id="listSiswaMonitor" class="space-y-3">
-                        </div>
+                        <!-- Diisi otomatis oleh JavaScript -->
+                    </div>
                 </div>
             </div>
         </div>
 
+        <!-- ========================================================= -->
+        <!-- ======================= MODE GURU ======================= -->
+        <!-- ========================================================= -->
         <div id="kontenGuru" class="hidden space-y-6">
+            <!-- DASHBOARD STATISTIK & TOMBOL CLEAR ALL -->
             <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm gap-4">
                 <div class="grid grid-cols-3 gap-4 flex-grow">
                     <div class="text-center sm:text-left">
@@ -144,28 +175,34 @@
                         <span id="statSelesai" class="text-xl font-extrabold text-emerald-600">0</span>
                     </div>
                 </div>
-                <button onclick="bersihkanSemuaData()" class="bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-xs px-3 py-2 rounded-xl border border-rose-200 transition shrink-0">
+                <!-- Tombol Khusus Reset Semua Laporan -->
+                <button onclick="bukaKonfirmasiReset()" class="bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-xs px-3 py-2 rounded-xl border border-rose-200 transition shrink-0">
                     Bersihkan Semua Arsip
                 </button>
             </div>
 
+            <!-- DAFTAR LAPORAN UNTUK EKSEKUSI GURU -->
             <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                 <h3 class="font-bold text-slate-800 text-md mb-4">Daftar Tugas Kerusakan Fasilitas</h3>
                 <div id="listGuruTugas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    </div>
+                    <!-- Diisi otomatis oleh JavaScript -->
+                </div>
             </div>
         </div>
 
     </main>
 
+    <!-- FOOTER ESTETIK -->
     <footer class="bg-white py-8 mt-16 border-t border-slate-100 text-center">
         <div class="max-w-6xl mx-auto px-4">
+            <!-- Garis Hiasan Halus -->
             <div class="w-16 h-0.5 bg-emerald-500 mx-auto mb-6 rounded-full opacity-60"></div>
             
             <p class="text-slate-400 text-[11px] font-medium tracking-[0.25em] uppercase flex items-center justify-center gap-2">
                 <span>© 2026</span>
                 <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
                 <span>Designed with</span>
+                <!-- Ikon Hati Emerald -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-emerald-500 fill-emerald-500 transform hover:scale-125 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
                 </svg>
@@ -180,12 +217,73 @@
         </div>
     </footer>
 
+    <!-- ========================================================= -->
+    <!-- ==================== DIALOG MODAL KUSTOM ================= -->
+    <!-- ========================================================= -->
+
+    <!-- 1. Modal Input Password Guru -->
+    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </div>
+                <h3 class="text-lg font-bold text-slate-900">Akses Khusus Guru</h3>
+                <p class="text-xs text-slate-500 mt-1">Silakan masukkan kata sandi petugas untuk membuka dashboard monitoring sarpras.</p>
+            </div>
+            <div class="mt-5">
+                <input type="password" id="inputSandiGuru" placeholder="••••••••" 
+                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition text-center font-bold tracking-widest text-lg">
+                <p id="errorSandi" class="hidden text-xs text-rose-500 font-semibold text-center mt-2">Sandi salah! Silakan masukkan sandi yang benar.</p>
+            </div>
+            <div class="mt-6 flex space-x-3">
+                <button onclick="tutupModalSandi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                    Batal
+                </button>
+                <button onclick="verifikasiSandi()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-emerald-100">
+                    Masuk
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Modal Konfirmasi & Hapus Laporan -->
+    <div id="modalKonfirmasi" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </div>
+                <h3 id="konfirmJudul" class="text-lg font-bold text-slate-900">Hapus Arsip?</h3>
+                <p id="konfirmPesan" class="text-xs text-slate-500 mt-1">Apakah Anda yakin ingin menghapus data laporan ini secara permanen dari database lokal?</p>
+            </div>
+            <div class="mt-6 flex space-x-3">
+                <button onclick="tutupModalKonfirmasi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+                    Kembali
+                </button>
+                <button id="btnAksiKonfirmasi" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-rose-100">
+                    Ya, Hapus
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- LOGIKA UTAMA JAVASCRIPT -->
     <script>
         // DATABASE BERSIH TOTAL SEJAK AWAL
         let dataLaporan = JSON.parse(localStorage.getItem('lapor_sarpras_db_v3')) || [];
 
         // Status verifikasi password guru
         let sudahVerifikasiGuru = false;
+
+        // Penampung id laporan yang sedang akan dihapus sementara menunggu konfirmasi
+        let idHapusSementara = null;
+        let aksiKonfirmasiAktif = null; // 'tunggal' atau 'semua'
 
         // Fungsi bantu simpan ke storage komputer/HP
         function simpanKeStorage() {
@@ -194,14 +292,44 @@
 
         // Fungsi membersihkan seluruh data (Reset total)
         function bersihkanSemuaData() {
-            if(confirm("Apakah Anda yakin ingin menghapus seluruh riwayat laporan? Tindakan ini tidak bisa dibatalkan.")) {
+            idHapusSementara = null;
+            aksiKonfirmasiAktif = 'semua';
+            document.getElementById('konfirmJudul').innerText = "Kosongkan Semua Laporan?";
+            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus seluruh riwayat laporan? Tindakan ini akan membersihkan semua log di database.";
+            document.getElementById('modalKonfirmasi').classList.remove('hidden');
+        }
+
+        // Fungsi membuka modal konfirmasi haps data tunggal
+        function bukaKonfirmasiHapus(id) {
+            idHapusSementara = id;
+            aksiKonfirmasiAktif = 'tunggal';
+            document.getElementById('konfirmJudul').innerText = "Hapus Laporan?";
+            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus arsip laporan ini secara permanen?";
+            document.getElementById('modalKonfirmasi').classList.remove('hidden');
+        }
+
+        // Fungsi menutup modal konfirmasi
+        function tutupModalKonfirmasi() {
+            document.getElementById('modalKonfirmasi').classList.add('hidden');
+            idHapusSementara = null;
+            aksiKonfirmasiAktif = null;
+        }
+
+        // Eksekusi aksi konfirmasi setelah disetujui di modal
+        document.getElementById('btnAksiKonfirmasi').addEventListener('click', function() {
+            if (aksiKonfirmasiAktif === 'semua') {
                 dataLaporan = [];
                 simpanKeStorage();
                 renderAplikasi();
+            } else if (aksiKonfirmasiAktif === 'tunggal' && idHapusSementara !== null) {
+                dataLaporan = dataLaporan.filter(lap => lap.id !== idHapusSementara);
+                simpanKeStorage();
+                renderAplikasi();
             }
-        }
+            tutupModalKonfirmasi();
+        });
 
-        // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password
+        // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password Kustom
         function switchTab(mode) {
             const btnSiswa = document.getElementById('btnSiswa');
             const btnGuru = document.getElementById('btnGuru');
@@ -215,25 +343,49 @@
                 kontenGuru.classList.add('hidden');
             } else {
                 if (!sudahVerifikasiGuru) {
-                    let inputPassword = prompt("Masukkan Kata Sandi Khusus Guru / Sarpras:");
-                    
-                    if (inputPassword === "lapor123") {
-                        sudahVerifikasiGuru = true; 
-                    } else {
-                        alert("Kata sandi salah! Akses ditolak.");
-                        return;
-                    }
+                    document.getElementById('inputSandiGuru').value = "";
+                    document.getElementById('errorSandi').classList.add('hidden');
+                    document.getElementById('modalPassword').classList.remove('hidden');
+                    return; 
                 }
 
-                btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
-                btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
-                kontenGuru.classList.remove('hidden');
-                kontenSiswa.classList.add('hidden');
-                
-                document.getElementById('badgeNotif').className = "hidden";
-                document.getElementById('badgeNotif').innerText = "0";
+                pindahKeModeGuru();
             }
             renderAplikasi();
+        }
+
+        // Fungsi menutup modal sandi
+        function tutupModalSandi() {
+            document.getElementById('modalPassword').classList.add('hidden');
+        }
+
+        // Verifikasi sandi guru kustom modal
+        function verifikasiSandi() {
+            const sandi = document.getElementById('inputSandiGuru').value;
+            if (sandi === "lapor123") {
+                sudahVerifikasiGuru = true;
+                tutupModalSandi();
+                pindahKeModeGuru();
+                renderAplikasi();
+            } else {
+                document.getElementById('errorSandi').classList.remove('hidden');
+            }
+        }
+
+        // Memindahkan tampilan ke halaman guru
+        function pindahKeModeGuru() {
+            const btnSiswa = document.getElementById('btnSiswa');
+            const btnGuru = document.getElementById('btnGuru');
+            const kontenSiswa = document.getElementById('kontenSiswa');
+            const kontenGuru = document.getElementById('kontenGuru');
+
+            btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
+            btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
+            kontenGuru.classList.remove('hidden');
+            kontenSiswa.classList.add('hidden');
+            
+            document.getElementById('badgeNotif').className = "hidden";
+            document.getElementById('badgeNotif').innerText = "0";
         }
 
         // Pilihan cepat menggunakan gambar preset
@@ -324,15 +476,6 @@
             renderAplikasi();
         }
 
-        // Menghapus arsip laporan secara spesifik
-        function hapusLaporan(id) {
-            if(confirm("Apakah Anda yakin ingin menghapus arsip laporan ini?")) {
-                dataLaporan = dataLaporan.filter(lap => lap.id !== id);
-                simpanKeStorage();
-                renderAplikasi();
-            }
-        }
-
         // Fungsi Render Data ke elemen HTML
         function renderAplikasi() {
             const listSiswa = document.getElementById('listSiswaMonitor');
@@ -405,7 +548,7 @@
                                 </div>
                             </div>
                             <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-                                <button onclick="hapusLaporan(${lap.id})" class="text-slate-400 hover:text-rose-600 text-xs transition">Hapus</button>
+                                <button onclick="bukaKonfirmasiHapus(${lap.id})" class="text-slate-400 hover:text-rose-600 text-xs transition">Hapus</button>
                                 ${tombolAksi}
                             </div>
                         </div>
@@ -418,3 +561,5 @@
     </script>
 </body>
 </html>
+
+```
