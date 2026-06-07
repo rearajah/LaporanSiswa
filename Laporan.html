@@ -19,6 +19,28 @@
             to { opacity: 1; transform: scale(1) translateY(0); }
         }
     </style>
+
+    <!-- SCRIPT ONESIGNAL SDK V16 (YANG SUDAH DIPERBAIKI UNTUK GITHUB PAGES) -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "451054c3-355d-4695-8579-21a3ed162786",
+          // Menyesuaikan path worker karena website berada di dalam sub-folder GitHub Pages
+          serviceWorkerPath: "OneSignalSDKWorker.js",
+          serviceWorkerParam: { scope: "/LaporanSiswa/" }
+        });
+
+        // Memaksa browser untuk langsung memunculkan pop-up izin notifikasi setelah 1 detik
+        setTimeout(async () => {
+            if (!OneSignal.Notifications.permission) {
+                console.log("Meminta izin notifikasi...");
+                await OneSignal.Notifications.requestPermission();
+            }
+        }, 1000);
+      });
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
 
@@ -221,7 +243,7 @@
     <!-- ========================================================= -->
 
     <!-- 1. Modal Input Password Guru -->
-    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
             <div class="text-center">
                 <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -262,7 +284,7 @@
             </div>
             <div class="mt-6 flex space-x-3">
                 <button onclick="tutupModalKonfirmasi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-                    Kembali
+                    Batal
                 </button>
                 <button id="btnAksiKonfirmasi" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-rose-100">
                     Ya, Hapus
@@ -366,6 +388,13 @@
                 tutupModalSandi();
                 pindahKeModeGuru();
                 renderAplikasi();
+
+                // TAMBAHAN: Tandai perangkat ini sebagai "guru" menggunakan OneSignal SDK v16
+                window.OneSignalDeferred = window.OneSignalDeferred || [];
+                OneSignalDeferred.push(function(OneSignal) {
+                    OneSignal.User.addTag("role", "guru");
+                    console.log("Perangkat berhasil ditandai dengan tag role: guru");
+                });
             } else {
                 document.getElementById('errorSandi').classList.remove('hidden');
             }
@@ -435,6 +464,9 @@
             dataLaporan.unshift(laporanBaru);
             simpanKeStorage();
 
+            // Kirim data ke sistem Push Notification OneSignal
+            kirimPushNotifKeGuru(barang, kelas, urgensi);
+
             const banner = document.getElementById('notifSukses');
             banner.classList.remove('hidden');
             setTimeout(() => banner.classList.add('hidden'), 4000);
@@ -453,7 +485,7 @@
             renderAplikasi();
         }
 
-        // Fitur Text To Speech
+        // Fitur Text To Speech (Suara robot Google)
         function panggilSuaraGuru(barang, kelas) {
             if ('speechSynthesis' in window) {
                 const kalimat = `Perhatian, laporan baru masuk. ${barang}, rusak di ruang, ${kelas}. Segera antarkan gantinya.`;
@@ -462,6 +494,31 @@
                 ucapan.rate = 0.9;
                 window.speechSynthesis.speak(ucapan);
             }
+        }
+
+        // Fungsi Mengirim API push notif target khusus (Tag role: guru)
+        function kirimPushNotifKeGuru(barang, kelas, urgensi) {
+            const appId = "451054c3-355d-4695-8579-21a3ed162786";
+            const restApiKey = "Os_v2_app_iuifjqzvlvdjlblzegr62frhq2q3amo6hqmeijecx33oz7jv54x6dnuxf6c3vwsqvir5dkyvh7jaoyu3zdatjxcwh4c7smqriumd2wa"; 
+
+            fetch("https://onesignal.com/api/v1/notifications", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "Authorization": "Basic " + restApiKey
+                },
+                body: JSON.stringify({
+                    app_id: appId,
+                    headings: { "en": `🚨 LAPORAN ${urgensi.toUpperCase()}!` },
+                    contents: { "en": `${barang} rusak di ruang ${kelas}. Segera cek!` },
+                    filters: [
+                        { "field": "tag", "key": "role", "relation": "=", "value": "guru" }
+                    ]
+                })
+            })
+            .then(response => response.json())
+            .then(data => console.log("OneSignal push log:", data))
+            .catch(error => console.error("OneSignal push error:", error));
         }
 
         // Mengubah status laporan
@@ -511,9 +568,8 @@
                     let warnaStatus = lap.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : lap.status === 'OTW' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-rose-100 text-rose-800';
                     let textInfo = lap.status === 'OTW' ? '<p class="text-[10px] text-amber-700 font-bold mt-1">🚚 Guru sedang berjalan membawa pengganti!</p>' : lap.status === 'Selesai' ? '<p class="text-[10px] text-emerald-700 font-bold mt-1">✓ Beres! Fasilitas baru sudah dipasang.</p>' : '';
                     
-                    // Box Informasi Lokasi Pengambilan dari Guru (Tampil jika Guru telah mengisi)
                     let infoLokasiAmbil = lap.lokasiAmbil ? `
-                        <div class="mt-2.5 p-2 bg-amber-50 border border-amber-200 rounded-lg text-[10px] text-amber-900 flex items-start gap-1.5 animate-fade-in shadow-sm">
+                        <div class="mt-2.5 p-2 bg-amber-50 border border-amber-200 rounded-lg text-[10px] text-amber-900 flex items-start gap-1.5 shadow-sm">
                             <span class="shrink-0 text-amber-600 text-xs">📦</span>
                             <div class="leading-relaxed">
                                 <span class="font-bold block text-amber-800 text-[10px] uppercase tracking-wider">Silakan Ambil Pengganti di:</span>
@@ -523,7 +579,7 @@
                     ` : '';
 
                     listSiswa.innerHTML += `
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col gap-1.5 animate-fade-in">
+                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex flex-col gap-1.5">
                             <div class="flex gap-3 items-start">
                                 <img src="${lap.foto}" class="w-12 h-12 rounded-lg object-cover bg-slate-200 shrink-0">
                                 <div class="min-w-0 flex-grow">
@@ -558,7 +614,6 @@
                         tombolAksi = `<span class="text-xs font-bold text-emerald-600 flex items-center">✓ Selesai</span>`;
                     }
 
-                    // Input form guru untuk memasukkan lokasi pengambilan barang pengganti
                     let formLokasiAmbil = `
                         <div class="mt-3 pt-3 border-t border-dashed border-slate-150">
                             <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1 flex justify-between">
@@ -603,5 +658,3 @@
     </script>
 </body>
 </html>
-
-```
