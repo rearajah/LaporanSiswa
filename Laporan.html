@@ -244,7 +244,7 @@
             try {
                 const response = await fetch(SCRIPT_URL);
                 dataLaporan = await response.json();
-                renderAplikasi();
+                renderAplikasi(false); // false = jangan paksa re-render jika sedang mengetik
                 document.getElementById('txtLoading').innerText = "AKTIF ✓";
             } catch (error) {
                 console.error("Gagal sinkronisasi data:", error);
@@ -296,11 +296,11 @@
             if (aksiKonfirmasiAktif === 'semua') {
                 kirimKeAppsScript({ action: "reset" });
                 dataLaporan = [];
-                renderAplikasi();
+                renderAplikasi(true);
             } else if (aksiKonfirmasiAktif === 'tunggal' && idHapusSementara !== null) {
                 kirimKeAppsScript({ action: "hapus", id: idHapusSementara });
                 dataLaporan = dataLaporan.filter(lap => lap.id !== idHapusSementara);
-                renderAplikasi();
+                renderAplikasi(true);
             }
             tutupModalKonfirmasi();
         });
@@ -447,19 +447,30 @@
         function ubahStatus(id, statusBaru) {
             kirimKeAppsScript({ action: "ubahStatus", id: id, status: statusBaru });
             dataLaporan = dataLaporan.map(lap => lap.id == id ? { ...lap, status: statusBaru } : lap);
-            renderAplikasi();
+            renderAplikasi(true);
         }
 
         function simpanLokasiAmbil(id) {
             const inputVal = document.getElementById(`lokasiAmbil-${id}`).value;
             kirimKeAppsScript({ action: "simpanLokasi", id: id, lokasiAmbil: inputVal });
             dataLaporan = dataLaporan.map(lap => lap.id == id ? { ...lap, lokasiAmbil: inputVal } : lap);
-            renderAplikasi();
+            
+            // Hilangkan fokus dari input secara manual setelah klik Set
+            if(document.getElementById(`lokasiAmbil-${id}`)) {
+                document.getElementById(`lokasiAmbil-${id}`).blur();
+            }
+            renderAplikasi(true); // Paksa render karena aksi simpan sudah selesai
         }
 
-        function renderAplikasi() {
+        // FUNGSI RENDER UTAMA (DENGAN FIX BUG KEYBOARD KETUTUP)
+        function renderAplikasi(force = false) {
             const listSiswa = document.getElementById('listSiswaMonitor');
             const listGuru = document.getElementById('listGuruTugas');
+
+            // BUG FIX: Jika tidak dipaksa (auto-refresh biasa) DAN user lagi fokus ngetik di input lokasi, SKIP RENDER agar keyboard tidak tertutup.
+            if (!force && document.activeElement && document.activeElement.id && document.activeElement.id.startsWith('lokasiAmbil-')) {
+                return; 
+            }
 
             document.getElementById('statMenunggu').innerText = dataLaporan.filter(l => l.status === 'Menunggu').length;
             document.getElementById('statOtw').innerText = dataLaporan.filter(l => l.status === 'OTW').length;
