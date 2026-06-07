@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,7 +7,7 @@
     <!-- Tailwind CSS CDN untuk Desain Modern -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         
         /* Animasi halusnya pop-up modal kustom */
@@ -83,20 +82,20 @@
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Pilihan Kerusakan Umum (Klik untuk Memilih):</label>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <button type="button" onclick="pilihPreset('Kursi Kelas Patah', 'https://i.ibb.co.com/4Rkshf1x/33211.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://i.ibb.co.com/4Rkshf1x/33211.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kursi Patah]">
+                            <button type="button" onclick="pilihPreset('Kursi Kelas Patah', 'https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=150&auto=format&fit=crop&q=60')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1581428982868-e410dd047a90?w=150&auto=format&fit=crop&q=60" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kursi Patah]">
                                 <strong>Kursi Patah</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('Kaca Jendela Pecah', 'https://i.ibb.co.com/5hXmgxdC/33212.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://i.ibb.co.com/5hXmgxdC/33212.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kaca Pecah]">
+                            <button type="button" onclick="pilihPreset('Kaca Jendela Pecah', 'https://images.unsplash.com/photo-1508213880531-417b1897e0a2?w=150&auto=format&fit=crop&q=60')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1508213880531-417b1897e0a2?w=150&auto=format&fit=crop&q=60" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Kaca Pecah]">
                                 <strong>Kaca Pecah</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('AC Kelas Bocor', 'https://i.ibb.co.com/84Lm6zwV/33217.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://i.ibb.co.com/84Lm6zwV/33217.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[AC Bocor]">
+                            <button type="button" onclick="pilihPreset('AC Kelas Bocor', 'https://images.unsplash.com/photo-1621905252507-b354bc25edac?w=150&auto=format&fit=crop&q=60')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1621905252507-b354bc25edac?w=150&auto=format&fit=crop&q=60" class="h-16 w-full object-cover rounded-lg mb-1" alt="[AC Bocor]">
                                 <strong>AC Bocor</strong>
                             </button>
-                            <button type="button" onclick="pilihPreset('Lampu Kelas Mati', 'https://i.ibb.co.com/B5Hp0wdR/33184.jpg')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
-                                <img src="https://i.ibb.co.com/B5Hp0wdR/33184.jpg" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Lampu Mati]">
+                            <button type="button" onclick="pilihPreset('Lampu Kelas Mati', 'https://images.unsplash.com/photo-1550985616-10810253b84d?w=150&auto=format&fit=crop&q=60')" class="p-2 border border-slate-200 rounded-xl bg-white hover:border-emerald-500 text-left text-xs transition">
+                                <img src="https://images.unsplash.com/photo-1550985616-10810253b84d?w=150&auto=format&fit=crop&q=60" class="h-16 w-full object-cover rounded-lg mb-1" alt="[Lampu Mati]">
                                 <strong>Lampu Mati</strong>
                             </button>
                         </div>
@@ -109,456 +108,515 @@
                             class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                     </div>
 
-                    <!-- LOKASI KELAS KETIK & URGENSI -->
+                    <!-- LOKASI KELAS & URGENSI -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Ruang Kelas *</label>
-                            <input type="text" id="kelasLokasi" placeholder="Ketik kelas, misal: 11 MIPA 3, Lab Biologi" required
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi Kelas / Ruangan *</label>
+                            <input type="text" id="lokasiRuang" placeholder="Contoh: Ruang Kelas XI-IPA 2" required
                                 class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tingkat Kedaruratan</label>
-                            <select id="urgensiLevel" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none text-slate-700">
-                                <option value="Biasa">Biasa (Tidak mengganggu KBM)</option>
-                                <option value="Sedang" selected>Sedang (Cukup mengganggu)</option>
-                                <option value="Darurat">Darurat (Harus diganti sekarang)</option>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Tingkat Urgensi</label>
+                            <select id="urgensiLevel" class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition cursor-pointer">
+                                <option value="Biasa" class="text-slate-800">Biasa (Bisa Ditunda)</option>
+                                <option value="Penting" class="text-amber-600 font-semibold">Penting (Butuh Hari Ini)</option>
+                                <option value="Darurat" class="text-rose-600 font-bold">Darurat (Mengganggu Belajar)</option>
                             </select>
                         </div>
                     </div>
 
-                    <!-- Upload Foto / Kamera -->
-                    <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Foto Bukti Kerusakan (Bisa pakai Kamera HP langsung)</label>
-                        <input type="file" id="fotoFile" accept="image/*" onchange="prosesFoto(event)" class="block w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 cursor-pointer">
-                        <input type="hidden" id="fotoBase64" value="https://i.ibb.co.com/4Rkshf1x/33211.jpg">
-                        <p id="txtFotoTerpilih" class="text-xs text-emerald-600 mt-1 font-semibold hidden">✓ Foto kustom berhasil dimuat!</p>
+                    <!-- Input Gambar Opsional -->
+                    <div class="hidden">
+                        <input type="hidden" id="fotoUrl" value="">
                     </div>
 
                     <!-- Tombol Kirim -->
-                    <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition transform active:scale-95">
-                        KIRIM LAPORAN KE GURU
+                    <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md shadow-emerald-600/10 hover:shadow-emerald-600/20 active:scale-[0.99] transition duration-150">
+                        Kirim Laporan Kerusakan
                     </button>
                 </form>
             </div>
 
-            <!-- MONITOR PROGRES REALTIME (KANAN) -->
+            <!-- DASHBOARD / STATUS LAPORAN (KANAN - UNTUK MURID) -->
             <div class="lg:col-span-5 space-y-6">
-                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
-                        <span>Status Perbaikan Kelas Anda</span>
-                        <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">LIVE PREVIEW</span>
-                    </h3>
-                    <div id="listSiswaMonitor" class="space-y-3">
-                        <!-- Diisi otomatis oleh JavaScript -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div class="flex justify-between items-center mb-4">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-900">Alur Real-Time Laporan</h2>
+                            <p class="text-xs text-slate-500">Pantau proses perbaikan & instruksi guru di sini</p>
+                        </div>
+                        <span class="inline-flex h-2 w-2 rounded-full bg-emerald-500 animate-ping"></span>
+                    </div>
+
+                    <!-- List Laporan Murid -->
+                    <div id="listLaporanSiswa" class="space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                        <!-- State Kosong -->
+                        <div id="siswaEmptyState" class="text-center py-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-slate-300 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                            </svg>
+                            <p class="text-sm font-semibold text-slate-600">Belum Ada Laporanmu</p>
+                            <p class="text-xs text-slate-400 mt-0.5">Silakan isi formulir di sebelah kiri untuk melapor.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- ========================================================= -->
         <!-- ======================= MODE GURU ======================= -->
         <!-- ========================================================= -->
         <div id="kontenGuru" class="hidden space-y-6">
-            <!-- DASHBOARD STATISTIK & TOMBOL CLEAR ALL -->
-            <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-100 shadow-sm gap-4">
-                <div class="grid grid-cols-3 gap-4 flex-grow">
-                    <div class="text-center sm:text-left">
-                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Antrean</span>
-                        <span id="statMenunggu" class="text-xl font-extrabold text-rose-600">0</span>
+            
+            <!-- STATS / SUMMARY GURU -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+                    <div class="p-3 bg-amber-50 text-amber-600 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
                     </div>
-                    <div class="text-center sm:text-left">
-                        <span class="block text-[10px] font-bold text-slate-400 uppercase">OTW</span>
-                        <span id="statOtw" class="text-xl font-extrabold text-amber-500">0</span>
-                    </div>
-                    <div class="text-center sm:text-left">
-                        <span class="block text-[10px] font-bold text-slate-400 uppercase">Selesai</span>
-                        <span id="statSelesai" class="text-xl font-extrabold text-emerald-600">0</span>
+                    <div>
+                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-400">Menunggu</span>
+                        <span id="statMenunggu" class="text-2xl font-bold text-slate-800">0</span>
                     </div>
                 </div>
-                <!-- Tombol Khusus Reset Semua Laporan -->
-                <button onclick="bukaKonfirmasiReset()" class="bg-rose-50 text-rose-700 hover:bg-rose-100 font-bold text-xs px-3 py-2 rounded-xl border border-rose-200 transition shrink-0">
-                    Bersihkan Semua Arsip
-                </button>
+                
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+                    <div class="p-3 bg-indigo-50 text-indigo-600 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-400">Diproses</span>
+                        <span id="statDiproses" class="text-2xl font-bold text-slate-800">0</span>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 flex items-center space-x-4">
+                    <div class="p-3 bg-emerald-50 text-emerald-600 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-400">Selesai</span>
+                        <span id="statSelesai" class="text-2xl font-bold text-slate-800">0</span>
+                    </div>
+                </div>
             </div>
 
-            <!-- DAFTAR LAPORAN UNTUK EKSEKUSI GURU -->
-            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                <h3 class="font-bold text-slate-800 text-md mb-4">Daftar Tugas Kerusakan Fasilitas</h3>
-                <div id="listGuruTugas" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- Diisi otomatis oleh JavaScript -->
+            <!-- TABEL / DAFTAR LAPORAN DI GURU -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="p-5 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900">Daftar Masuk Laporan Sarpras</h2>
+                        <p class="text-xs text-slate-500">Kelola status perbaikan dan kirim lokasi instruksi pengambilan barang pengganti.</p>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100">
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Detail Laporan</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Lokasi & Pelapor</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Urgensi</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Instruksi Pengambilan</th>
+                                <th class="p-4 text-xs font-bold text-slate-500 uppercase tracking-wider">Status & Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelLaporanGuru" class="divide-y divide-slate-100 text-sm">
+                            <!-- State Kosong Tabel -->
+                            <tr id="guruEmptyState">
+                                <td colspan="5" class="p-8 text-center text-slate-400">
+                                    Belum ada laporan kerusakan yang dikirim oleh siswa.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
         </div>
 
     </main>
 
-    <!-- FOOTER ESTETIK -->
-    <footer class="bg-white py-8 mt-16 border-t border-slate-100 text-center">
-        <div class="max-w-6xl mx-auto px-4">
-            <!-- Garis Hiasan Halus -->
-            <div class="w-16 h-0.5 bg-emerald-500 mx-auto mb-6 rounded-full opacity-60"></div>
+    <!-- MODAL POPUP UNTUK MENGIRIM / UPDATE INSTRUKSI PENGAMBILAN BARANG -->
+    <div id="modalInstruksi" class="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl p-6 modal-active border border-slate-100">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-900">Instruksi Pengambilan Barang</h3>
+                    <p class="text-xs text-slate-500">Beritahu siswa lokasi & pesan khusus pengambilan barang baru/ganti.</p>
+                </div>
+                <button onclick="closeModalInstruksi()" class="p-1 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 4.293z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
             
-            <p class="text-slate-400 text-[11px] font-medium tracking-[0.25em] uppercase flex items-center justify-center gap-2">
-                <span>© 2026</span>
-                <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
-                <span>Designed with</span>
-                <!-- Ikon Hati Emerald -->
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-emerald-500 fill-emerald-500 transform hover:scale-125 transition duration-300" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
-                </svg>
-                <span>by</span>
-                <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
-                <span class="font-bold text-slate-700 tracking-normal hover:text-emerald-600 transition duration-300 cursor-default">X RPL 2</span>
-            </p>
-            
-            <p class="text-slate-300 text-[10px] italic mt-2.5">
-                Aplikasi Pengawasan Sarana & Prasarana Sekolah
-            </p>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-xs font-semibold text-emerald-600 mb-1">Barang Laporan:</p>
+                    <p id="modalBarangTitle" class="text-sm font-bold text-slate-800 bg-slate-50 p-2.5 rounded-lg border border-slate-100"></p>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">Lokasi / Keterangan Pengambilan *</label>
+                    <textarea id="inputLokasiAmbil" rows="3" placeholder="Contoh: Silakan diambil di Gudang Sarpras Lantai 1 dengan menemui Pak Joko." required
+                        class="w-full px-4 py-2.5 bg-slate-50 hover:bg-slate-100/50 focus:bg-white border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition text-sm"></textarea>
+                </div>
+
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeModalInstruksi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-xl text-sm transition">
+                        Batal
+                    </button>
+                    <button onclick="simpanInstruksi()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm shadow-md shadow-emerald-600/10 transition">
+                        Kirim Instruksi
+                    </button>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-12 text-center text-xs text-slate-400">
+        <p>© 2026 LaporSarpras. Mempercepat Koordinasi Layanan Sarana dan Prasarana Sekolah.</p>
     </footer>
 
-    <!-- ========================================================= -->
-    <!-- ==================== DIALOG MODAL KUSTOM ================= -->
-    <!-- ========================================================= -->
-
-    <!-- 1. Modal Input Password Guru -->
-    <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
-            <div class="text-center">
-                <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Akses Khusus Guru</h3>
-                <p class="text-xs text-slate-500 mt-1">Silakan masukkan kata sandi petugas untuk membuka dashboard monitoring sarpras.</p>
-            </div>
-            <div class="mt-5">
-                <input type="password" id="inputSandiGuru" placeholder="••••••••" 
-                    class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 outline-none transition text-center font-bold tracking-widest text-lg">
-                <p id="errorSandi" class="hidden text-xs text-rose-500 font-semibold text-center mt-2">Sandi salah! Silakan masukkan sandi yang benar.</p>
-            </div>
-            <div class="mt-6 flex space-x-3">
-                <button onclick="tutupModalSandi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-                    Batal
-                </button>
-                <button onclick="verifikasiSandi()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-emerald-100">
-                    Masuk
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- 2. Modal Konfirmasi & Hapus Laporan -->
-    <div id="modalKonfirmasi" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
-            <div class="text-center">
-                <div class="w-12 h-12 bg-rose-50 text-rose-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                    </svg>
-                </div>
-                <h3 id="konfirmJudul" class="text-lg font-bold text-slate-900">Hapus Laporan?</h3>
-                <p id="konfirmPesan" class="text-xs text-slate-500 mt-1">Apakah Anda yakin ingin menghapus data laporan ini secara permanen dari database lokal?</p>
-            </div>
-            <div class="mt-6 flex space-x-3">
-                <button onclick="tutupModalKonfirmasi()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
-                    Kembali
-                </button>
-                <button id="btnAksiKonfirmasi" class="flex-1 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs rounded-xl transition shadow-md shadow-rose-100">
-                    Ya, Hapus
-                </button>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- LOGIKA UTAMA JAVASCRIPT -->
+    <!-- IN-MEMORY DATA STORAGE & JAVASCRIPT LOGIC -->
     <script>
-        // DATABASE BERSIH TOTAL SEJAK AWAL
-        let dataLaporan = JSON.parse(localStorage.getItem('lapor_sarpras_db_v3')) || [];
-
-        // Status verifikasi password guru
-        let sudahVerifikasiGuru = false;
-
-        // Penampung id laporan yang sedang akan dihapus sementara menunggu konfirmasi
-        let idHapusSementara = null;
-        let aksiKonfirmasiAktif = null; // 'tunggal' atau 'semua'
-
-        // Fungsi bantu simpan ke storage komputer/HP
-        function simpanKeStorage() {
-            localStorage.setItem('lapor_sarpras_db_v3', JSON.stringify(dataLaporan));
-        }
-
-        // Fungsi membersihkan seluruh data (Reset total)
-        function bersihkanSemuaData() {
-            idHapusSementara = null;
-            aksiKonfirmasiAktif = 'semua';
-            document.getElementById('konfirmJudul').innerText = "Kosongkan Semua Laporan?";
-            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus seluruh riwayat laporan? Tindakan ini akan membersihkan semua log di database.";
-            document.getElementById('modalKonfirmasi').classList.remove('hidden');
-        }
-
-        // Fungsi membuka modal konfirmasi hapus data tunggal
-        function bukaKonfirmasiHapus(id) {
-            idHapusSementara = id;
-            aksiKonfirmasiAktif = 'tunggal';
-            document.getElementById('konfirmJudul').innerText = "Hapus Laporan?";
-            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus arsip laporan ini secara permanen?";
-            document.getElementById('modalKonfirmasi').classList.remove('hidden');
-        }
-
-        // Fungsi menutup modal konfirmasi
-        function tutupModalKonfirmasi() {
-            document.getElementById('modalKonfirmasi').classList.add('hidden');
-            idHapusSementara = null;
-            aksiKonfirmasiAktif = null;
-        }
-
-        // Eksekusi aksi konfirmasi setelah disetujui di modal
-        document.getElementById('btnAksiKonfirmasi').addEventListener('click', function() {
-            if (aksiKonfirmasiAktif === 'semua') {
-                dataLaporan = [];
-                simpanKeStorage();
-                renderAplikasi();
-            } else if (aksiKonfirmasiAktif === 'tunggal' && idHapusSementara !== null) {
-                dataLaporan = dataLaporan.filter(lap => lap.id !== idHapusSementara);
-                simpanKeStorage();
-                renderAplikasi();
+        // Simulasi Database di Memori (Bekerja Real-time di Single Session)
+        let databaseLaporan = [
+            {
+                id: "rep-101",
+                siswa: "Gavin Arrasyid",
+                barang: "Kaca Jendela Pecah",
+                lokasi: "Kelas XII-IPA 1",
+                urgensi: "Darurat",
+                foto: "https://images.unsplash.com/photo-1508213880531-417b1897e0a2?w=150&auto=format&fit=crop&q=60",
+                status: "Diproses",
+                instruksi: "Suku cadang kaca sudah siap. Ketua kelas silakan datang ke Ruang Workshop Sarpras di belakang masjid sekolah untuk membantu membawanya.",
+                waktu: "10 Menit yang lalu"
+            },
+            {
+                id: "rep-102",
+                siswa: "Siti Rahmawati",
+                barang: "AC Kelas Bocor",
+                lokasi: "Kelas XI-IPS 3",
+                urgensi: "Penting",
+                foto: "https://images.unsplash.com/photo-1621905252507-b354bc25edac?w=150&auto=format&fit=crop&q=60",
+                status: "Menunggu",
+                instruksi: "",
+                waktu: "30 Menit yang lalu"
             }
-            tutupModalKonfirmasi();
-        });
+        ];
 
-        // Fungsi Switch Tab (Halaman Siswa <=> Guru) dengan Validasi Password Kustom
-        function switchTab(mode) {
+        let selectedPresetImage = "";
+        let selectedLaporanIdForInstruksi = null;
+
+        // Navigasi Tab
+        function switchTab(role) {
             const btnSiswa = document.getElementById('btnSiswa');
             const btnGuru = document.getElementById('btnGuru');
             const kontenSiswa = document.getElementById('kontenSiswa');
             const kontenGuru = document.getElementById('kontenGuru');
 
-            if (mode === 'siswa') {
+            if (role === 'siswa') {
                 btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm";
                 btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10 relative";
                 kontenSiswa.classList.remove('hidden');
                 kontenGuru.classList.add('hidden');
             } else {
-                if (!sudahVerifikasiGuru) {
-                    document.getElementById('inputSandiGuru').value = "";
-                    document.getElementById('errorSandi').classList.add('hidden');
-                    document.getElementById('modalPassword').classList.remove('hidden');
-                    return; 
-                }
-
-                pindahKeModeGuru();
+                btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
+                btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
+                kontenSiswa.classList.add('hidden');
+                kontenGuru.classList.remove('hidden');
+                
+                // Hilangkan badge notifikasi ketika tab guru dibuka
+                const badge = document.getElementById('badgeNotif');
+                badge.classList.add('hidden');
+                badge.innerText = "0";
             }
-            renderAplikasi();
+            renderAll();
         }
 
-        // Fungsi menutup modal sandi
-        function tutupModalSandi() {
-            document.getElementById('modalPassword').classList.add('hidden');
-        }
-
-        // Verifikasi sandi guru kustom modal
-        function verifikasiSandi() {
-            const sandi = document.getElementById('inputSandiGuru').value;
-            if (sandi === "lapor123") {
-                sudahVerifikasiGuru = true;
-                tutupModalSandi();
-                pindahKeModeGuru();
-                renderAplikasi();
-            } else {
-                document.getElementById('errorSandi').classList.remove('hidden');
-            }
-        }
-
-        // Memindahkan tampilan ke halaman guru
-        function pindahKeModeGuru() {
-            const btnSiswa = document.getElementById('btnSiswa');
-            const btnGuru = document.getElementById('btnGuru');
-            const kontenSiswa = document.getElementById('kontenSiswa');
-            const kontenGuru = document.getElementById('kontenGuru');
-
-            btnGuru.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 bg-white text-emerald-800 shadow-sm relative";
-            btnSiswa.className = "flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-medium transition duration-200 text-white hover:bg-white/10";
-            kontenGuru.classList.remove('hidden');
-            kontenSiswa.classList.add('hidden');
-            
-            document.getElementById('badgeNotif').className = "hidden";
-            document.getElementById('badgeNotif').innerText = "0";
-        }
-
-        // Pilihan cepat menggunakan gambar preset
-        function pilihPreset(namaBarang, urlGambar) {
+        // Memilih Preset Kerusakan Cepat
+        function pilihPreset(namaBarang, urlFoto) {
             document.getElementById('barangNama').value = namaBarang;
-            document.getElementById('fotoBase64').value = urlGambar;
-            document.getElementById('txtFotoTerpilih').innerText = "✓ Menggunakan contoh foto preset";
-            document.getElementById('txtFotoTerpilih').classList.remove('hidden');
-        }
-
-        // Memproses file foto buatan sendiri menjadi format base64
-        function prosesFoto(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('fotoBase64').value = e.target.result;
-                document.getElementById('txtFotoTerpilih').innerText = "✓ Foto kustom siap dikirim!";
-                document.getElementById('txtFotoTerpilih').classList.remove('hidden');
-            }
-            reader.readAsDataURL(file);
-        }
-
-        // Fungsi ketika siswa menekan tombol Kirim Laporan
-        function kirimLaporan(event) {
-            event.preventDefault();
+            document.getElementById('fotoUrl').value = urlFoto;
+            selectedPresetImage = urlFoto;
             
-            const nama = document.getElementById('siswaNama').value;
+            // Beri highlight tipis pada input barang yang terisi otomatis
+            const inputBarang = document.getElementById('barangNama');
+            inputBarang.classList.add('ring-2', 'ring-emerald-500');
+            setTimeout(() => {
+                inputBarang.classList.remove('ring-2', 'ring-emerald-500');
+            }, 1000);
+        }
+
+        // Mengirim Laporan Baru (Murid)
+        function kirimLaporan(e) {
+            e.preventDefault();
+            
+            const siswa = document.getElementById('siswaNama').value;
             const barang = document.getElementById('barangNama').value;
-            const kelas = document.getElementById('kelasLokasi').value;
+            const lokasi = document.getElementById('lokasiRuang').value;
             const urgensi = document.getElementById('urgensiLevel').value;
-            const foto = document.getElementById('fotoBase64').value;
-            
-            const waktuSekarang = new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const foto = selectedPresetImage || "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=150&auto=format&fit=crop&q=60"; // Default generic asset
 
-            const laporanBaru = {
-                id: Date.now(),
-                nama: nama,
+            const laporBaru = {
+                id: "rep-" + Date.now().toString().slice(-4),
+                siswa: siswa,
                 barang: barang,
-                kelas: kelas,
+                lokasi: lokasi,
                 urgensi: urgensi,
                 foto: foto,
                 status: "Menunggu",
-                waktu: waktuSekarang
+                instruksi: "",
+                waktu: "Baru saja"
             };
 
-            dataLaporan.unshift(laporanBaru);
-            simpanKeStorage();
+            // Tambahkan di awal database memori
+            databaseLaporan.unshift(laporBaru);
 
-            const banner = document.getElementById('notifSukses');
-            banner.classList.remove('hidden');
-            setTimeout(() => banner.classList.add('hidden'), 4000);
+            // Munculkan Notifikasi Sukses
+            const notif = document.getElementById('notifSukses');
+            notif.classList.remove('hidden');
+            setTimeout(() => {
+                notif.classList.add('hidden');
+            }, 5000);
 
-            const badge = document.getElementById('badgeNotif');
-            let jumlahNotif = parseInt(badge.innerText) + 1;
-            badge.innerText = jumlahNotif;
-            badge.classList.remove('hidden');
+            // Update Badge Notifikasi di tab Guru jika sedang berada di tab Siswa
+            const kontenGuru = document.getElementById('kontenGuru');
+            if (kontenGuru.classList.contains('hidden')) {
+                const badge = document.getElementById('badgeNotif');
+                const curVal = parseInt(badge.innerText) || 0;
+                badge.innerText = curVal + 1;
+                badge.classList.remove('hidden');
+            }
 
-            panggilSuaraGuru(barang, kelas);
-
+            // Reset Form & Preset
             document.getElementById('formLaporan').reset();
-            document.getElementById('txtFotoTerpilih').classList.add('hidden');
-            document.getElementById('fotoBase64').value = "https://i.ibb.co.com/4Rkshf1x/33211.jpg";
+            selectedPresetImage = "";
 
-            renderAplikasi();
+            renderAll();
         }
 
-        // Fitur Text To Speech
-        function panggilSuaraGuru(barang, kelas) {
-            if ('speechSynthesis' in window) {
-                const kalimat = `Perhatian, laporan baru masuk. ${barang}, rusak di ruang, ${kelas}. Segera antarkan gantinya.`;
-                const ucapan = new SpeechSynthesisUtterance(kalimat);
-                ucapan.lang = 'id-ID';
-                ucapan.rate = 0.9;
-                window.speechSynthesis.speak(ucapan);
+        // Mengubah Status Laporan (Aksi Guru)
+        function updateStatus(id, statusBaru) {
+            const item = databaseLaporan.find(x => x.id === id);
+            if (item) {
+                item.status = statusBaru;
+                renderAll();
             }
         }
 
-        // Mengubah status laporan
-        function ubahStatus(id, statusBaru) {
-            dataLaporan = dataLaporan.map(lap => {
-                if(lap.id === id) {
-                    return { ...lap, status: statusBaru };
-                }
-                return lap;
-            });
-            simpanKeStorage();
-            renderAplikasi();
+        // Fitur Tambahan: Membuka Modal Pengisian Instruksi Pengambilan Barang
+        function openModalInstruksi(id) {
+            const item = databaseLaporan.find(x => x.id === id);
+            if (item) {
+                selectedLaporanIdForInstruksi = id;
+                document.getElementById('modalBarangTitle').innerText = `${item.barang} (${item.lokasi})`;
+                document.getElementById('inputLokasiAmbil').value = item.instruksi || "";
+                document.getElementById('modalInstruksi').classList.remove('hidden');
+            }
         }
 
-        // Fungsi Render Data ke elemen HTML
-        function renderAplikasi() {
-            const listSiswa = document.getElementById('listSiswaMonitor');
-            const listGuru = document.getElementById('listGuruTugas');
+        function closeModalInstruksi() {
+            document.getElementById('modalInstruksi').classList.add('hidden');
+            selectedLaporanIdForInstruksi = null;
+        }
 
-            let mng = dataLaporan.filter(l => l.status === 'Menunggu').length;
-            let otw = dataLaporan.filter(l => l.status === 'OTW').length;
-            let sls = dataLaporan.filter(l => l.status === 'Selesai').length;
-
-            document.getElementById('statMenunggu').innerText = mng;
-            document.getElementById('statOtw').innerText = otw;
-            document.getElementById('statSelesai').innerText = sls;
-
-            // 1. RENDER UNTUK MONITOR SISWA (KANAN)
-            listSiswa.innerHTML = "";
-            if(dataLaporan.length === 0) {
-                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">Belum ada laporan masuk dari siswa kelas manapun.</p>`;
-            } else {
-                dataLaporan.slice(0, 4).forEach(lap => {
-                    let warnaStatus = lap.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : lap.status === 'OTW' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-rose-100 text-rose-800';
-                    let textInfo = lap.status === 'OTW' ? '<p class="text-[10px] text-amber-700 font-bold mt-1">🚚 Guru sedang berjalan membawa pengganti!</p>' : lap.status === 'Selesai' ? '<p class="text-[10px] text-emerald-700 font-bold mt-1">✓ Beres! Fasilitas baru sudah dipasang.</p>' : '';
+        function simpanInstruksi() {
+            const teksInstruksi = document.getElementById('inputLokasiAmbil').value.trim();
+            if (selectedLaporanIdForInstruksi) {
+                const item = databaseLaporan.find(x => x.id === selectedLaporanIdForInstruksi);
+                if (item) {
+                    item.instruksi = teksInstruksi;
                     
-                    listSiswa.innerHTML += `
-                        <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl flex gap-3 items-start animate-fade-in">
-                            <img src="${lap.foto}" class="w-12 h-12 rounded-lg object-cover bg-slate-200 shrink-0">
-                            <div class="min-w-0 flex-grow">
-                                <div class="flex justify-between items-start gap-1">
-                                    <h4 class="text-xs font-bold text-slate-800 truncate">${lap.barang}</h4>
-                                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase shrink-0 ${warnaStatus}">${lap.status}</span>
-                                </div>
-                                <p class="text-[10px] text-slate-500 mt-0.5">📍 ${lap.kelas} • Jam ${lap.waktu}</p>
-                                ${textInfo}
-                            </div>
-                        </div>
-                    `;
-                });
-            }
-
-            // 2. RENDER UNTUK DAFTAR TUGAS GURU (MODE GURU)
-            listGuru.innerHTML = "";
-            if(dataLaporan.length === 0) {
-                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Semua aman! Tidak ada fasilitas rusak saat ini.</div>`;
-            } else {
-                dataLaporan.forEach(lap => {
-                    let badgeUrgensi = lap.urgensi === 'Darurat' ? 'bg-rose-500' : lap.urgensi === 'Sedang' ? 'bg-amber-500' : 'bg-slate-500';
-                    let tombolAksi = "";
-
-                    if(lap.status === 'Menunggu') {
-                        tombolAksi = `<button onclick="ubahStatus(${lap.id}, 'OTW')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition">Bawa Barang & OTW</button>`;
-                    } else if (lap.status === 'OTW') {
-                        tombolAksi = `<button onclick="ubahStatus(${lap.id}, 'Selesai')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition">Selesai Terpasang</button>`;
-                    } else {
-                        tombolAksi = `<span class="text-xs font-bold text-emerald-600 flex items-center">✓ Selesai</span>`;
+                    // Secara otomatis ubah status ke "Diproses" jika guru mengirim instruksi pengambilan
+                    if (item.status === "Menunggu" && teksInstruksi !== "") {
+                        item.status = "Diproses";
                     }
-
-                    listGuru.innerHTML += `
-                        <div class="p-4 rounded-xl border ${lap.status === 'Selesai' ? 'border-slate-200 bg-slate-50' : 'border-rose-200 bg-white shadow-sm'} flex flex-col justify-between">
-                            <div>
-                                <div class="flex justify-between items-start gap-2 mb-2">
-                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full text-white ${badgeUrgensi}">${lap.urgensi}</span>
-                                    <span class="text-xs text-slate-400">Jam ${lap.waktu}</span>
-                                </div>
-                                <div class="flex gap-3">
-                                    <img src="${lap.foto}" class="w-16 h-16 rounded-xl object-cover border border-slate-200 shrink-0">
-                                    <div>
-                                        <h4 class="font-bold text-slate-800 text-sm leading-snug">${lap.barang}</h4>
-                                        <p class="text-xs text-slate-600 font-semibold mt-1 text-emerald-700">📍 Ruang: ${lap.kelas}</p>
-                                        <p class="text-[11px] text-slate-400 mt-0.5">Dilaporkan oleh: ${lap.nama}</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-                                <button onclick="bukaKonfirmasiHapus(${lap.id})" class="text-slate-400 hover:text-rose-600 text-xs transition">Hapus</button>
-                                ${tombolAksi}
-                            </div>
-                        </div>
-                    `;
-                });
+                }
+                closeModalInstruksi();
+                renderAll();
             }
         }
 
-        renderAplikasi();
+        // Render Antarmuka
+        function renderAll() {
+            renderSiswaDashboard();
+            renderGuruDashboard();
+        }
+
+        // 1. Render Dashboard/Sisi Siswa (Daftar Laporan)
+        function renderSiswaDashboard() {
+            const listContainer = document.getElementById('listLaporanSiswa');
+            const emptyState = document.getElementById('siswaEmptyState');
+            
+            // Bersihkan sisa render sebelumnya selain emptyState
+            const cardElements = listContainer.querySelectorAll('.laporan-card');
+            cardElements.forEach(card => card.remove());
+
+            if (databaseLaporan.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            databaseLaporan.forEach(item => {
+                // Urgensi Color Badge
+                let urgensiClass = "bg-slate-100 text-slate-700";
+                if (item.urgensi === "Penting") urgensiClass = "bg-amber-100 text-amber-800";
+                if (item.urgensi === "Darurat") urgensiClass = "bg-rose-100 text-rose-800 font-semibold";
+
+                // Status Badge Color
+                let statusClass = "bg-amber-100 text-amber-800";
+                if (item.status === "Diproses") statusClass = "bg-indigo-100 text-indigo-800";
+                if (item.status === "Selesai") statusClass = "bg-emerald-100 text-emerald-800";
+
+                // Deteksi instruksi pengambilan dari guru
+                let instruksiHtml = "";
+                if (item.instruksi) {
+                    instruksiHtml = `
+                        <div class="mt-3 p-3 bg-emerald-50 rounded-xl border border-emerald-200/60 text-xs">
+                            <span class="font-bold text-emerald-800 block mb-1">📢 Lokasi/Instruksi Ambil dari Guru:</span>
+                            <p class="text-slate-700 font-medium">${item.instruksi}</p>
+                        </div>
+                    `;
+                } else if (item.status === "Diproses") {
+                    instruksiHtml = `
+                        <div class="mt-3 p-3 bg-slate-100 rounded-xl border border-slate-200 text-xs">
+                            <span class="font-bold text-slate-600 block mb-0.5">📢 Status Pengambilan:</span>
+                            <p class="text-slate-500 italic">Menunggu instruksi guru untuk lokasi pengambilan barang pengganti.</p>
+                        </div>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = "laporan-card bg-slate-50 p-4 rounded-xl border border-slate-200/60 transition duration-150 hover:shadow-sm";
+                card.innerHTML = `
+                    <div class="flex gap-3">
+                        <img src="${item.foto}" class="h-14 w-14 object-cover rounded-lg border border-slate-200 flex-shrink-0" alt="foto kerusakan">
+                        <div class="flex-grow">
+                            <div class="flex justify-between items-start gap-2">
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${urgensiClass}">${item.urgensi}</span>
+                                <span class="text-[10px] text-slate-400 font-semibold">${item.waktu}</span>
+                            </div>
+                            <h4 class="font-bold text-slate-800 text-sm mt-1">${item.barang}</h4>
+                            <p class="text-xs text-slate-500">📍 ${item.lokasi} • Melapor: <span class="font-semibold text-slate-700">${item.siswa}</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 pt-2.5 border-t border-slate-200/60 flex justify-between items-center text-xs">
+                        <span class="text-slate-500 font-semibold">ID: ${item.id}</span>
+                        <span class="px-2.5 py-1 rounded-lg text-[11px] font-bold ${statusClass}">Status: ${item.status}</span>
+                    </div>
+
+                    ${instruksiHtml}
+                `;
+                listContainer.appendChild(card);
+            });
+        }
+
+        // 2. Render Dashboard/Sisi Guru (Kelola & Dashboard Guru)
+        function renderGuruDashboard() {
+            // Update Mini Stats
+            const countMenunggu = databaseLaporan.filter(x => x.status === "Menunggu").length;
+            const countDiproses = databaseLaporan.filter(x => x.status === "Diproses").length;
+            const countSelesai = databaseLaporan.filter(x => x.status === "Selesai").length;
+
+            document.getElementById('statMenunggu').innerText = countMenunggu;
+            document.getElementById('statDiproses').innerText = countDiproses;
+            document.getElementById('statSelesai').innerText = countSelesai;
+
+            const tbody = document.getElementById('tabelLaporanGuru');
+            const emptyRow = document.getElementById('guruEmptyState');
+
+            // Bersihkan sisa render selain emptyRow
+            const rows = tbody.querySelectorAll('.laporan-row');
+            rows.forEach(r => r.remove());
+
+            if (databaseLaporan.length === 0) {
+                emptyRow.classList.remove('hidden');
+                return;
+            } else {
+                emptyRow.classList.add('hidden');
+            }
+
+            databaseLaporan.forEach(item => {
+                // Urgensi Class Badge
+                let urgensiClass = "bg-slate-100 text-slate-700";
+                if (item.urgensi === "Penting") urgensiClass = "bg-amber-100 text-amber-800";
+                if (item.urgensi === "Darurat") urgensiClass = "bg-rose-100 text-rose-800 font-bold";
+
+                // Instruksi Display Text
+                let statusInstruksiText = "";
+                if (item.instruksi) {
+                    statusInstruksiText = `
+                        <div class="max-w-[200px]">
+                            <p class="text-xs font-semibold text-slate-800">Di: ${item.instruksi.slice(0, 45)}${item.instruksi.length > 45 ? '...' : ''}</p>
+                            <button onclick="openModalInstruksi('${item.id}')" class="text-[11px] text-indigo-600 font-bold hover:underline mt-0.5">Edit Lokasi Ambil</button>
+                        </div>
+                    `;
+                } else {
+                    statusInstruksiText = `
+                        <button onclick="openModalInstruksi('${item.id}')" class="px-2.5 py-1 bg-indigo-50 hover:bg-indigo-100 text-indigo-600 rounded-lg text-xs font-bold transition">
+                            + Tentukan Lokasi Ambil
+                        </button>
+                    `;
+                }
+
+                // Baris Tabel
+                const tr = document.createElement('tr');
+                tr.className = "laporan-row hover:bg-slate-50/50 transition";
+                tr.innerHTML = `
+                    <td class="p-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.foto}" class="h-12 w-12 object-cover rounded-lg border border-slate-200" alt="foto barang">
+                            <div>
+                                <p class="font-bold text-slate-900">${item.barang}</p>
+                                <p class="text-xs text-slate-400">ID: ${item.id} • ${item.waktu}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-4">
+                        <p class="font-semibold text-slate-800">${item.lokasi}</p>
+                        <p class="text-xs text-slate-500">${item.siswa}</p>
+                    </td>
+                    <td class="p-4">
+                        <span class="px-2 py-0.5 rounded-full text-xs font-semibold ${urgensiClass}">${item.urgensi}</span>
+                    </td>
+                    <td class="p-4">
+                        ${statusInstruksiText}
+                    </td>
+                    <td class="p-4">
+                        <div class="flex items-center gap-2">
+                            <select onchange="updateStatus('${item.id}', this.value)" class="bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg py-1 px-2.5 text-xs font-bold text-slate-700 outline-none cursor-pointer">
+                                <option value="Menunggu" ${item.status === 'Menunggu' ? 'selected' : ''}>Menunggu</option>
+                                <option value="Diproses" ${item.status === 'Diproses' ? 'selected' : ''}>Diproses</option>
+                                <option value="Selesai" ${item.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                            </select>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Inisialisasi awal saat dokumen selesai dimuat
+        window.onload = function() {
+            renderAll();
+        }
     </script>
+
 </body>
 </html>
 
