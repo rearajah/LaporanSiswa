@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaporSarpras - Pelaporan Fasilitas Sekolah</title>
+    <title>LaporKuyy - Pelaporan Fasilitas Sekolah</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
@@ -49,7 +49,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">LaporSarpras</h1>
+                    <h1 class="text-xl font-bold tracking-tight">LaporKuyy</h1>
                     <p class="text-xs text-emerald-100/80">Sistem Cepat Ganti Fasilitas Rusak</p>
                 </div>
             </div>
@@ -72,11 +72,11 @@
             <div class="lg:col-span-7 bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
                 <div class="mb-5">
                     <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">Formulir Laporan Kerusakan</h2>
-                    <p class="text-xs text-slate-500 mt-1">Isi data barang agar nampak langsung di Google Sheet & HP Guru Sarpras secara global.</p>
+                    <p class="text-xs text-slate-500 mt-1">Isi data barang secara lengkap untuk melaporkan kerusakan fasilitas sekolah.</p>
                 </div>
 
                 <div id="notifSukses" class="hidden mb-6 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl p-4 flex items-start space-x-3">
-                    <div class="text-emerald-600 font-bold">✓ Laporan berhasil disimpan ke Google Sheets & Terkirim ke HP Guru!</div>
+                    <div class="text-emerald-600 font-bold">✓ Laporan berhasil terkirim dan masuk antrean petugas!</div>
                 </div>
 
                 <form id="formLaporan" onsubmit="kirimLaporan(event)" class="space-y-5">
@@ -138,7 +138,7 @@
                     </div>
 
                     <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold py-3 px-6 rounded-xl shadow-md hover:from-emerald-700 hover:to-teal-700 transition transform active:scale-95">
-                        KIRIM LAPORAN KE GOOGLE SHEET
+                        KIRIM LAPORAN
                     </button>
                 </form>
             </div>
@@ -146,7 +146,7 @@
             <div class="lg:col-span-5 space-y-6">
                 <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
                     <h3 class="font-bold text-slate-800 text-sm mb-4 flex items-center justify-between">
-                        <span>Status Perbaikan Sekolah (Cloud Database)</span>
+                        <span>Status Perbaikan Sekolah</span>
                         <span id="txtLoading" class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded-full animate-pulse">MEMUAT...</span>
                     </h3>
                     <div id="listSiswaMonitor" class="space-y-3">
@@ -198,18 +198,20 @@
 
     <div id="modalPassword" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-100 transform modal-active">
-            <div class="text-center">
-                <h3 class="text-lg font-bold text-slate-900">Akses Khusus Guru</h3>
-                <p class="text-xs text-slate-500 mt-1">Silakan masukkan kata sandi petugas sarpras.</p>
-            </div>
-            <div class="mt-5">
-                <input type="password" id="inputSandiGuru" placeholder="••••••••" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-center font-bold text-lg tracking-widest">
-                <p id="errorSandi" class="hidden text-xs text-rose-500 font-semibold text-center mt-2">Sandi salah!</p>
-            </div>
-            <div class="mt-6 flex space-x-3">
-                <button onclick="tutupModalSandi()" class="flex-1 py-2.5 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl">Batal</button>
-                <button onclick="verifikasiSandi()" class="flex-1 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl">Masuk</button>
-            </div>
+            <form onsubmit="event.preventDefault(); verifikasiSandi();" class="space-y-5">
+                <div class="text-center">
+                    <h3 class="text-lg font-bold text-slate-900">Akses Khusus Guru</h3>
+                    <p class="text-xs text-slate-500 mt-1">Silakan masukkan kata sandi petugas sarpras.</p>
+                </div>
+                <div>
+                    <input type="password" id="inputSandiGuru" autocomplete="current-password" placeholder="••••••••" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-center font-bold text-lg tracking-widest">
+                    <p id="errorSandi" class="hidden text-xs text-rose-500 font-semibold text-center mt-2">Sandi salah!</p>
+                </div>
+                <div class="flex space-x-3">
+                    <button type="button" onclick="tutupModalSandi()" class="flex-1 py-2.5 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl">Batal</button>
+                    <button type="submit" class="flex-1 py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl">Masuk</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -227,9 +229,6 @@
     </div>
 
     <script>
-        // ==========================================
-        // ⚠️ URL GOOGLE WEB APP SUDAH TERPASANG DI SINI ⚠️
-        // ==========================================
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx710yYNuYEYCE-6bOPkZVuiqvDwNX9o9dN0V-TJMbbdtHKg9_bN19BbaP24l6B-CKE/exec";
 
         let dataLaporan = [];
@@ -237,38 +236,34 @@
         let idHapusSementara = null;
         let aksiKonfirmasiAktif = null; 
 
-        // Fungsi Memuat Data Global dari Google Sheet
+        // Fungsi Memuat Data Global
         async function muatDataDariSheet() {
             if(!SCRIPT_URL || SCRIPT_URL.includes("URL_WEB_APP_KAMU")) return;
             
-            document.getElementById('txtLoading').innerText = "SINKRONISASI...";
+            document.getElementById('txtLoading').innerText = "MEMUAT...";
             try {
                 const response = await fetch(SCRIPT_URL);
                 dataLaporan = await response.json();
                 renderAplikasi();
-                document.getElementById('txtLoading').innerText = "TERHUBUNG ✓";
+                document.getElementById('txtLoading').innerText = "AKTIF ✓";
             } catch (error) {
                 console.error("Gagal sinkronisasi data:", error);
                 document.getElementById('txtLoading').innerText = "KONEKSI EROR";
             }
         }
 
-        // Jalankan sinkronisasi data otomatis setiap 5 detik (Real-time polling)
         setInterval(muatDataDariSheet, 5000);
         window.addEventListener('DOMContentLoaded', muatDataDariSheet);
 
-        // Fungsi Mengirim Data Baru ke Google Sheet via POST
+        // Fungsi Mengirim Data Baru via POST
         async function kirimKeAppsScript(payload, isNewReport = false) {
             try {
-                // Menggunakan text/plain & mode no-cors untuk bypass error CORS browser pada Apps Script
                 await fetch(SCRIPT_URL, {
                     method: "POST",
                     mode: "no-cors",
                     headers: { "Content-Type": "text/plain" },
                     body: JSON.stringify(payload)
                 });
-                
-                // Beri jeda kecil lalu muat ulang data agar instan terasa di layar saat itu juga
                 setTimeout(muatDataDariSheet, 1000);
             } catch (error) {
                 console.error("Gagal mengirim aksi ke server database:", error);
@@ -278,16 +273,16 @@
         function bukaKonfirmasiReset() {
             idHapusSementara = null;
             aksiKonfirmasiAktif = 'semua';
-            document.getElementById('konfirmJudul').innerText = "Kosongkan Google Sheet?";
-            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus SELURUH isi baris laporan di Google Sheet?";
+            document.getElementById('konfirmJudul').innerText = "Kosongkan Arsip Laporan?";
+            document.getElementById('konfirmPesan').innerText = "Apakah Anda yakin ingin menghapus SELURUH isi arsip data laporan?";
             document.getElementById('modalKonfirmasi').classList.remove('hidden');
         }
 
         function bukaKonfirmasiHapus(id) {
             idHapusSementara = id;
             aksiKonfirmasiAktif = 'tunggal';
-            document.getElementById('konfirmJudul').innerText = "Hapus Baris?";
-            document.getElementById('konfirmPesan').innerText = "Menghapus data ini juga akan menghapus barisnya di Google Sheet.";
+            document.getElementById('konfirmJudul').innerText = "Hapus Laporan?";
+            document.getElementById('konfirmPesan').innerText = "Menghapus data ini akan menghapus datanya secara permanen dari sistem.";
             document.getElementById('modalKonfirmasi').classList.remove('hidden');
         }
 
@@ -392,7 +387,7 @@
 
             const laporanBaru = {
                 action: "tambah",
-                id: Date.now().toString(), // Gunakan String ID agar presisi di Sheet
+                id: Date.now().toString(), 
                 nama: nama,
                 barang: barang,
                 kelas: kelas,
@@ -403,10 +398,7 @@
                 lokasiAmbil: ""
             };
 
-            // 1. Dorong data ke Google Sheets
             kirimKeAppsScript(laporanBaru, true);
-
-            // 2. Tembak Notifikasi ke Server OneSignal
             kirimPushNotifKeGuru(barang, kelas, urgensi);
 
             const banner = document.getElementById('notifSukses');
@@ -475,7 +467,7 @@
 
             listSiswa.innerHTML = "";
             if(dataLaporan.length === 0) {
-                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">Belum ada data di Google Sheet.</p>`;
+                listSiswa.innerHTML = `<p class="text-xs text-slate-400 text-center py-8 bg-slate-50 border border-dashed border-slate-200 rounded-xl">Belum ada laporan masuk.</p>`;
             } else {
                 dataLaporan.slice(0, 5).forEach(lap => {
                     let warnaStatus = lap.status === 'Selesai' ? 'bg-emerald-100 text-emerald-800' : lap.status === 'OTW' ? 'bg-amber-100 text-amber-800 animate-pulse' : 'bg-rose-100 text-rose-800';
@@ -496,7 +488,7 @@
 
             listGuru.innerHTML = "";
             if(dataLaporan.length === 0) {
-                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Google sheet kosong.</div>`;
+                listGuru.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-sm">Antrean laporan bersih.</div>`;
             } else {
                 dataLaporan.forEach(lap => {
                     let badgeUrgensi = lap.urgensi === 'Darurat' ? 'bg-rose-500' : lap.urgensi === 'Sedang' ? 'bg-amber-500' : 'bg-slate-500';
@@ -512,7 +504,10 @@
                                 </div>
                                 <div class="mt-3 pt-3 border-t border-dashed">
                                     <label class="block text-[10px] font-bold text-slate-500 mb-1">Lokasi Pengambilan Barang:</label>
-                                    <div class="flex gap-1"><input type="text" id="lokasiAmbil-${lap.id}" value="${lap.lokasiAmbil || ''}" placeholder="Ketik lokasi" class="flex-grow px-2 py-1 text-xs border rounded-lg outline-none"><button onclick="simpanLokasiAmbil('${lap.id}')" class="px-2 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg">Set</button></div>
+                                    <div class="flex gap-1">
+                                        <input type="text" id="lokasiAmbil-${lap.id}" value="${lap.lokasiAmbil || ''}" autocomplete="off" placeholder="Ketik lokasi" class="flex-grow px-2 py-1 text-xs border rounded-lg outline-none">
+                                        <button type="button" onclick="simpanLokasiAmbil('${lap.id}')" class="px-2 py-1 bg-emerald-600 text-white text-xs font-bold rounded-lg">Set</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="mt-4 pt-3 border-t flex justify-between items-center"><button onclick="bukaKonfirmasiHapus('${lap.id}')" class="text-slate-400 hover:text-rose-600 text-xs">Hapus</button>${tombolAksi}</div>
